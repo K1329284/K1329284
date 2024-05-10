@@ -1,0 +1,3210 @@
+<!DOCTYPE html>
+<html> 
+  <head>
+    <title>Posibility RPG</title> 
+  </head>
+  <body>
+	<!--This draws the canvas on the webpage -->
+    <canvas id="mycanvas"></canvas> 
+  </body>
+ 
+  <!-- Include the processing.js library -->
+  <!-- See https://khanacademy.zendesk.com/hc/en-us/articles/202260404-What-parts-of-ProcessingJS-does-Khan-Academy-support- for differences -->
+  <script src="https://cdn.jsdelivr.net/processing.js/1.4.8/processing.min.js"></script> 
+  <script>
+  var programCode = function(processingInstance) {
+    with (processingInstance) {
+      size(400, 400); 
+      frameRate(60);
+        
+      // Paste code from Khan Academy here:
+      
+//⅋❂ 
+
+if(true){
+textFont(createFont("serif"));
+var coinFlip = function(){return !(round(random()));};
+var backgroundColor = color(255);
+var dragonColor = [color(0),color(50),color(100)];
+background(backgroundColor);
+var frame = 0;
+var wait = 0;
+var workers = 0;
+var turn = true;
+var waiting = false;
+var doneWaiting = false;
+var hold;
+var num;
+var exploreNotification = "Press Explore";
+var jitter = random(-5,5);
+var miningBagChoice = round(random(1,100));
+var miningBagChoiceSave = round(random(1,100));
+var forageValue = round(random(1,100));
+var fishingNotification = "Press enter to start fishing and make it in the red";
+var miningNotification = 'Press the "mine" Button';
+var diploma = false;
+
+
+var alive = true;
+
+var stage = 1;
+var soul = 100;
+var choke = 0.01;
+
+var inSchool = false;
+
+var intel = 1;
+var learn = 0;
+var muscle = 0.1;
+var crown = false;
+}
+
+var player = {
+    UI: "main",  
+    alive: true,
+region: "home",
+clicks: 0,
+garden: [64,128,196,256],
+gameTime: 0,
+realTime: 0,
+selling: false,
+sellingVal: false,
+meta: "worker", //worker, king, god, chaosLord, lumberjackOfWorlds, TrueGod
+
+deaths: 0,
+maxhealth: 100,
+health: 100,
+regen: 1,
+coins: 0,
+strength: 5,
+defense: 0,
+
+pearls: 0,
+pearlprice: 666,
+pearlgrowth: 0,
+marketopen : true,
+
+wood: 0,
+stone: 0,
+coal: 0,
+copper: 0,
+iron: 0,
+titanium: 0,
+silver: 0,
+gold: 0,
+opal: 0,
+fephite: 0,
+chaosium: 0,
+yggleaf: 0,
+cosmicwood: 0,
+
+land: 1,
+farmland: 0,
+
+forests: [100],
+tree: 0,
+
+cards: [],
+dcards: [],
+gambling: false,
+turn: "you",
+
+fighting: false,
+
+tools:{
+    sword:{
+    type: "none",
+    orbs: 0,
+    },
+    pickaxe:{
+    type: "copper",
+    orbs: 0,
+    },
+    axe:{
+    type: "none",
+    orbs: 0,
+    },
+    rod:{
+    type: "copper",
+    orbs: 0,
+    },
+    sickle:{
+    type: "none",
+    orbs: 0,
+    },
+    helmet:{
+    type: "none",
+    orbs: 0,
+    },
+    bodyplate:{
+    type: "none",
+    orbs: 0,
+    },
+    boots:{
+    type: "none",
+    orbs: 0,
+    },
+    staff:{
+    type: "none",
+    orbs: 0,
+    },
+},
+
+power:{
+    mining: 1,
+    chopping: 1,
+    fishing: 1,
+    farming: 1,
+    casting: 1,
+    slashing: 1,
+    helmet: 1,
+    chestplate: 1,
+    boots: 1,
+},
+
+runes:{
+    labour:1,
+    growth:1,
+},
+
+hunger: 100,
+fish: 0,
+allfish: 0,
+crops: 0,
+berries: 20,
+meat: 0,
+mushrooms: 0,
+casted: false,
+line: 0,
+d: RIGHT,
+chestsOpened: 0,
+
+skills: {
+    mining: 1,
+    fishing: 1,
+    combat: 1,
+    chopping: 1,
+    gathering: 1,
+    },
+    
+workers: {
+    tools: 0,
+    weapons: 0,
+    miners: 0,
+    fishermen: 0,
+    fighters: 0,
+    lumberjacks: 0,
+    merchants: 0,
+    },
+
+gods: {
+        zaeles: 0,
+        enonaprs: 0,
+        isufrads: 0,
+        thalyrus: 0,
+        chaos: 0,
+    },
+
+    
+
+kills: 0,
+    
+    goo: 0,
+    bones: 0,
+    spikes: 0,
+    wings: 1,
+};
+
+var enemy = {
+health: 1,
+regen: 0,
+defense: 0,
+attack: 0,
+shine: 0,
+name: "none",
+};
+
+var latch = {
+up: 1,
+down: 1,
+left: 1,
+right: 1,
+p: 10,
+z: 5,
+b: 0,
+y: 200,
+s: random(-5,5)
+};
+
+var buttons = {
+_example_: ["centerX","centerY","radiusX","radiusY","1st Require","2nd Require","3rd Require"],
+fightSwing: [100,325,95,20,true,true,true],
+fightCast: [100,375,95,20,true,true,true],
+fightHeal: [300,325,95,20,true,true,true],
+fightRun: [300,375,95,20,true,true,true],
+};
+function clickedObjectButton(buttonName){
+if(mouseX > buttonName[0] - buttonName[2] && mouseX < buttonName[0] + buttonName[2] && mouseY > buttonName[1] - buttonName[3] && mouseY < buttonName[1] + buttonName[3] && buttonName[4] && buttonName[5] && buttonName[6]){return true;}else{return false;}}
+function drawObjectButton(buttonName,BColor,BStroke,BStrokeSize,BText,BTextColor,BTextSize){
+    if(buttonName[4] && buttonName[5] && buttonName[6]){
+if(BStrokeSize === 0){noStroke();}
+else{
+    stroke(BStroke);
+    strokeWeight(BStrokeSize);}
+fill(BColor);
+rect(buttonName[0]-buttonName[2],buttonName[1]-buttonName[3],buttonName[2]*2,buttonName[3]*2);
+
+//Text on button
+if(BText !== undefined){
+fill(BTextColor);
+textAlign(CENTER, CENTER);
+textSize(BTextSize);
+text(BText, buttonName[0], buttonName[1]);}
+}
+}
+
+var help = {
+guide: "Welcome to the help guide, press anywhere to leave ot press the following.\n[C] - Combat Guide\n[E] - Economic Guide\n[S] - Skill Guide\n[W] - How to win Guide\n[R] - Resource Guide\n[D] - Death Guide\n[X] - Education Guide\n[T] - Tool Guide\n[Y] - Casino Guide\n[H] - Health Guide\n",
+
+combat: "Combat has 4 buttons Slash, cast, heal, and run. Slash uses a sword to do damage, cast uses a staff, if you don't have one the enemy will hit you. Heal gives you 10% of you health. Run will allow you to leave the battle but you will get hit before leaving. Enemies have many stats, you do as much damage as your attack - enemy defense and the reverse. Enemies do not have a max health, they can regenerate forever like a cancer, do not let this happen. You will lose without at least a copper sword.",
+
+economic: "You can make alot of money from combat but mining with employees can make millions if you have the right build. Workers are not worth paying unless you have maxed out your labour runes. Money isn't everything but it really helps as you can buy 12 opal from the shop for $30,000 then get the second best armor.",
+
+skill: "You earn as much less xp per level as it requires 100xp to get to level 2 but it takes 10,000xp to get from 99 to 100 (Besides Gathering which always does 100xp). You get xp proportional to labour. It takes 17 hours of 10CPS clicking to reach mining lvl 100 but only 10 minutes with 20 labour runes and an opal pickaxe.",
+
+win: "To win you need:\n- Level 100 Everything \n- $100,000,000\n- All god armor\n- Defeat opal dragon\n- 1,000 Workers\n- 1,000,000 Stone\n- 25,000 Fish\n- Be Alive",
+
+resource: "Resources cover minerals, wood, fish, and foraged goods. Resources also give xp when collected, all of them can either be eaten or sold. The mineral you get while mining is based on your level a level 100 has a 2% chance of an opal, but a 0.001% at level 1, your chances doubles every 10 levels. Your amount depends on the tool and the labour runes.",
+
+death: "If you die you must go through a series of challenges. The first one you must use arrow keys to make all of them white. On the second one you must get the most red and press control. The third one you press b until you roll a 20 and press on the 20, you then are revieved. Do not let your bar at the bottom reach empty, you will lose.",
+
+school: "School is an optional thing but you caan get man awards. You can click to get more gains, your gains go down if you stop clicking and your strength changes by your gains. Your intellect starts at 1.0 and goes up when pressed but you get less per click the higher it goes. Strength affects sword attacks and intel affects magic attacks.",
+
+tool: "To upgrade tools it costs 100 of the next metal and 100 coal. The levels are copper, iron, titanium, opal, and fephite. The higher the level of tools the more xp/mineral/damage you get. Fephite tools can only be gotten from chests in the peaks or dungeon. ",
+
+casino: "The casino only uses a dumbed down version of blackjack. You only win when your opponent busts. Stand just allows the bot to go, and hit gives you one more card between 1 and 9. If you win, you get your 2,000$ of winnings and you get to play another game for free.",
+
+health: "You must keep your health above 0, it starts at 100 and can be increased from fishing or in chests found in the peaks and dungeon. You max health can be increased from fishing with about a 6% rate if you hit bull's eye, you can get from 1 - 20 more health depending on your luck it could be 5% or 0.1%, if your health hits 0, you (refer to death help guide).",
+};
+
+var helpText = help.guide;
+
+//================================================================================//
+//================================================================================//
+//==============================Declaring=Functions===============================//
+//================================================================================//
+//================================================================================//
+
+function arrayTotal(arr){
+    hold = 0;
+    for(var i = 0; i < arr.length; i++){
+        hold += arr[i];
+    }
+    return (hold);
+}
+
+function materialDraw(thing){
+    noStroke();
+    if(thing === "copper"){fill(130, 110, 30);stroke(130,110,30);}
+    else if(thing === "iron"){fill(230, 200, 200);stroke(230,220,220);}
+    else if(thing === "titanium"){fill(200, 220, 200);stroke(200,220,200);}
+    else if(thing === "opal"){fill(250, 80, 170);stroke(250,80,170);}
+    else if(thing === "fephite"){fill(0, 255, 140);stroke(0,255,140);}
+    else if(thing === "chaosium"){fill(50, 0, 70);stroke(50,0,70);}
+    else if(thing === "yggleaf"){fill(255, 183, 0);stroke(186, 124, 48);}
+    else if(thing === "cosmicwood"){fill(130, 60, 60);stroke(70,30,30);}
+    else{fill(50);}
+}
+
+function ran(minz,maxz){
+    return ceil(random(minz,maxz));
+}
+
+function fephTool(){
+    hold = ran(0,9);
+    if(hold === 1){player.tools.pickaxe.type = "fephite";}
+    else if(hold === 2){player.tools.axe.type = "fephite";}
+    else if(hold === 3){player.tools.sickle.type = "fephite";}
+    else if(hold === 4){player.tools.sword.type = "fephite";}
+    else if(hold === 5){player.tools.staff.type = "fephite";}
+    else if(hold === 6){player.tools.rod.type = "fephite";}
+    else if(hold === 7){player.tools.helmet.type = "fephite";}
+    else if(hold === 8){player.tools.bodyplate.type = "fephite";}
+    else if(hold === 9){player.tools.boots.type = "fephite";}
+}
+
+function chest(noti){
+    hold = ran(0,ran(0,100));
+    if(hold < 10){
+        noti = "Chest full of Money!";
+        player.coins += ran(1000,ran(1000,ran(1000,100000)));
+    }
+    else if(hold < 20){
+        noti = "Chest full of coal...";
+        player.coal += ran(1,ran(1,ran(1,100)));
+    }
+    else if(hold < 30){
+        noti = "A magic textbook!";
+        if(inSchool){
+        player.intel += random(0.1,0.3);}
+    }
+    else if(hold < 40){
+        noti = "A whole cooked giant Chicken!";
+        player.hunger = 105;
+    }
+    else if(hold < 50){
+        noti = "A heart-shaped gemstone!";
+        player.maxhealth += 5;
+    }
+    else if(hold < 60){
+        noti = "A piece of equipment from the GODS!";
+        fephTool();
+    }
+    else if(hold < 70){
+        noti = "A pill of pure protein!";
+        if(inSchool){player.muscle ++;}
+    }
+    else if(hold < 80){
+        noti = "A Labour rune!";
+        player.runes.labour++;
+    }
+    else if(hold < 90){
+        noti = "A map to a patch of forest!";
+        player.runes.growth ++;
+        player.runes.labour += round(random());
+        player.forest[0] += ran(ran(1,200),ran(1,200));
+        player.skills.chopping ++;
+    }
+    else if(hold < 100){
+        noti = "A cosmic potion! You feel wonderful!";
+        player.muscle ++;
+        player.intel += 0.5;
+        player.maxhealth += 10;
+        player.health = player.maxhealth;
+        player.wings ++;
+        player.skills.gathering ++;
+        player.skills.chopping ++;
+        player.skills.fishing ++;
+        player.skills.mining ++;
+        player.skills.combat ++;
+        player.hunger = 100;
+        fephTool();
+    }
+    exploreNotification = noti;
+}
+
+function canBeKing(){
+    if(player.skills.combat >= 100 && player.skills.mining >= 100 && player.skills.chopping >= 100 && player.skills.gathering >= 100 && player.skills.fishing >= 100 && intel >= 2 && player.strength >= 7.5 && workers >= 1000 && player.stone >= 1000000 && player.coins >= 100000000 && crown){return true;}
+    else{return false;}
+}
+
+///////////////////////////////////////////////////////////////////
+
+function drawMainStats(){
+    fill(0, 0, 0);
+    noStroke();
+    rect(280,0,110,30);
+    rect(385,0,15,110);
+    fill(200, 0, 0);
+    rect(285, 5, player.health/player.maxhealth*100, 20);
+    fill(250, 125, 0);
+    rect(390, 5, 5, player.hunger);
+    fill(0);
+    textSize(17);
+    text("$" + player.coins, 280,48);
+    }
+function drawArmor(){
+    noStroke();
+    if(player.tools.helmet.type !== "none"){
+        materialDraw(player.tools.helmet.type);
+        noStroke();
+        ellipse(330,70,80,80);
+        ellipse(300,95,20,20);
+        ellipse(360,95,20,20);
+        fill(50);
+        ellipse(330,90,50,60);
+        fill(0, 50);
+        ellipse(330,45,40,20);}
+    if(player.tools.bodyplate.type !== "none"){
+        materialDraw(player.tools.bodyplate.type);
+        noStroke();
+        ellipse(311,170,50,50);
+        ellipse(351,170,50,50);
+        rect(306,176,50,60);
+        ellipse(331,236,50,24);
+        fill(0, 50);
+        ellipse(319,190,20,10);
+        ellipse(344,190,20,10);
+        ellipse(320,205,18,9);
+        ellipse(342,205,18,9);
+        ellipse(321,220,16,8);
+        ellipse(341,220,16,8);
+        ellipse(322,234,14,7);
+        ellipse(340,234,14,7);
+        fill(255, 20);
+        ellipse(302,162,20,20);
+        
+    }
+    if(player.tools.boots.type !== "none"){
+        materialDraw(player.tools.boots.type);
+        noStroke();
+        rect(300,300,20,50);
+        rect(340,300,20,50);
+        rect(350,340,20,20);
+        rect(290,340,20,20);
+        ellipse(290,350,20,20);
+        ellipse(370,350,20,20);
+        ellipse(310,350,20,20);
+        ellipse(350,350,20,20);
+        fill(255, 30);
+        ellipse(305,320,5,30);
+        ellipse(345,320,5,30);
+        fill(255,30);
+        ellipse(294,347,20,10);
+        //ellipse(352,347,20,10);
+    }
+}
+function drawAxes(){
+    if(player.tools.pickaxe.type !== "none"){
+    materialDraw(player.tools.pickaxe.type);
+    noStroke();
+    ellipse(67,60,80,80);
+    fill(50);
+    ellipse(67,71,100,80);
+    stroke(100, 60, 0);
+    strokeWeight(10);
+    line(67,20,67,100);
+    stroke(80, 50, 0);
+    strokeWeight(4);
+    line(67,20,67,100);}
+    
+    if(player.tools.axe.type !== "none"){
+    materialDraw(player.tools.axe.type);
+    noStroke();
+    ellipse(67,184,60,60);
+    fill(50);
+    ellipse(67,160,50,30);
+    ellipse(67,210,50,46);
+    strokeWeight(6);
+    stroke(0,50);
+    line(47,182,87,182);
+    stroke(100, 60, 0);
+    strokeWeight(10);
+    line(67,240,67,170);
+    stroke(80, 50, 0);
+    strokeWeight(4);
+    line(67,240,67,170);}
+    
+    if(player.tools.sickle.type !== "none"){
+    materialDraw(player.tools.sickle.type);
+    noStroke();
+    ellipse(67,320,60,80);
+    fill(50);
+    ellipse(77,320,50,70);
+    stroke(100, 60, 0);
+    strokeWeight(15);
+    line(82,383,73,360);
+    stroke(80, 50, 0);
+    strokeWeight(7);
+    line(82,383,73,360);}
+}
+function drawWeapons(){
+    if(player.tools.sword.type !== "none"){
+    materialDraw(player.tools.sword.type);
+    noStroke();
+    ellipse(200,50,20,80);
+    fill(0,50);
+    ellipse(200,50,12,60);
+    stroke(100, 60, 0);
+    strokeWeight(25);
+    line(200,90,200,90);
+    stroke(80, 50, 0);
+    strokeWeight(15);
+    line(200,90,200,90);
+    strokeWeight(10);
+    stroke(100, 60, 0);
+    line(200,102,200,116);
+    strokeWeight(4);
+    stroke(80, 50, 0);
+    line(200,94,200,116);
+    
+    }
+    
+    if(player.tools.staff.type !== "none"){
+    stroke(255, 200, 0);
+    strokeWeight(10);
+    line(200,200,210,170); 
+    line(200,200,190,170);
+    line(200,250,200,170); //
+    stroke(255, 255, 0);
+    strokeWeight(4);
+    line(200,250,200,170); //
+    line(200,200,210,170);
+    line(200,200,190,170);
+    noStroke();
+    if(player.tools.staff.type === "opal"){fill(198, 67, 207);stroke(168, 37, 177);}
+    else if(player.tools.staff.type === "fephite"){fill(0, 255, 140);stroke(0,185,70);}
+    else if(player.tools.staff.type === "chaosium"){fill(50, 0, 70);stroke(20,0,40);}
+    else{fill(50);}
+    ellipse(200,161,36,36);
+    fill(255, 30);
+    if(player.tools.staff.type === "fephite"){fill(255, 120);}
+    noStroke();
+    ellipse(200,161,24,24);
+    ellipse(200,161,18,18);
+    ellipse(200,161,12,12);
+    ellipse(200,161,6,6);
+    }
+    
+    if(player.tools.rod.type !== "none"){
+    materialDraw(player.tools.rod.type);
+    strokeWeight(8);
+    line(150,380,230,290);
+    fill(177);
+    noStroke();
+    ellipse(184,355,20,20);
+    strokeWeight(5);
+    stroke(247, 226, 201);
+    line(231,290,231,370);
+    fill(140, 136, 136);
+    noStroke();
+    ellipse(230,370,20,30);
+    fill(50);
+    ellipse(226,368,16,24);
+    }
+}
+function drawMain(){
+    background(backgroundColor);
+    fill(0, 0, 0);
+    textSize(27);
+    text("Welcome to the Menu",10,25);
+    fill(255, 255, 150);
+    rect(280,0,120,400);
+    fill(255, 239, 148);
+    rect(11,37,258,310);
+    fill(0, 0, 0);
+    textSize(14);
+    text("Hello! So I heard what happened to your father and I send my prayers, but you can't eat prayers so you need to earn something. You father left you his old copper pickaxe, a mine, and the family estate of a small shack with few trees. I see good things in you, here is a basket of berries from my farm. I hope to see you around sometime. Almost forgot to mention, I left a fishing rod for you somewhere around here, if you find it you can keep it. Look out for any slimes, I heard the slimapedes are migrating here early so I'd recomend keeping an eye out. \n                     - Your Neighbor, John Lee", 20, 48,250,300);
+    text("[?] - Help", 285, 70);
+    text("[R] - Resources", 285, 90);
+    text("[F] - Food", 285, 110);
+    text("[M] - Mines", 285, 130);
+    text("[A] - Adventure", 285, 150);
+    text("[S] - Statistics", 285, 170);
+    text("[$] - Shop", 285, 190);
+    text("[W] - Workers", 285, 210);
+    text("[T] - Tools", 285, 230);
+    text("[L] - Lumber", 285, 250);
+    text("[O] - Ocean", 285, 270);
+    text("[B] - Blood Pearls", 285, 290);
+    text("[Y] - Casino", 285, 310);
+    text("[Q] - The Room", 285, 330);
+    text("[D] - Drops", 285, 350);
+    text("[E] - Education", 285, 370);
+    text("[Z] - Ascension", 285, 390);
+}
+function drawHelp(){
+    fill(0);
+    textSize(20);
+    text(helpText, 10, 70, 350, 330);
+}
+function drawFood(){
+    
+    //Berries
+    noStroke();
+    fill(255, 0, 100);
+    ellipse(67,66,30,30);
+    ellipse(45,54,30,30);
+    ellipse(67,40,30,30);
+    fill(94, 150, 93);
+    ellipse(54,26,10,30);
+    ellipse(42,38,30,10);
+    
+    //Corn
+    fill(255, 200, 0);
+    ellipse(45,110,30,30);
+    fill(255, 251, 0);
+    ellipse(50,120,30,30);
+    fill(255, 200, 0);
+    ellipse(55,130,30,30);
+    fill(255, 251, 0);
+    ellipse(60,140,30,30);
+    fill(255, 200, 0);
+    ellipse(65,150,30,30);
+    fill(255, 251, 0);
+    ellipse(70,160,30,30);
+    fill(94, 150, 93);
+    ellipse(81,157,20,50);
+    ellipse(72,166,50,20);
+    
+    //Mushroom
+    fill(232, 213, 177);
+    ellipse(70,220,60,45);
+    fill(204, 188, 159);
+    rect(55,220,30,50);
+    ellipse(70,270,30,10);
+    fill(196, 180, 151);
+    ellipse(70,228,40,30);
+    
+    //Meat
+    fill(143, 71, 71);
+    ellipse(68,323,64,50);
+    ellipse(81,334,60,40);
+    fill(209, 151, 151);
+    ellipse(59,319,18,12);
+    
+    //Text
+    fill(0);
+    textSize(50);
+    text(player.mushrooms, 100, 266);
+    text(player.berries, 88, 68);
+    text(player.crops, 73, 128);
+    text(player.meat, 116, 342);
+}
+function drawMine(){
+    fill(180);
+    stroke(0, 0, 0);
+    strokeWeight(1);
+    rect(0, 300, 399,99);
+    fill(0, 0, 0);
+    textFont(createFont("serif"), 80);
+    text("Mine",100,375);
+    fill(80);
+    noStroke();
+    ellipse(232+jitter,161+jitter,182,159);
+    ellipse(160+jitter,182+jitter,118,96);
+    fill(60);
+    rect(130+jitter,170+jitter,35,70);
+    fill(130, 70, 0);
+    rect(120+jitter,150+jitter,10,100);
+    rect(165+jitter,150+jitter,10,100);
+    fill(150, 90, 0);
+    rect(110+jitter,160+jitter,75,10);
+    fill(backgroundColor);
+    rect(0+jitter,220+jitter,400,50);
+    strokeWeight(10);
+    stroke(70);
+    point(250+jitter,100+jitter);
+    point(183+jitter,111+jitter);
+    point(222+jitter,160+jitter);
+    point(274+jitter,203+jitter);
+    point(240+jitter,146+jitter);
+    point(187+jitter,187+jitter);
+    
+    fill(0, 0, 0);
+    textSize(30);
+    text("Level " + floor(player.skills.mining*100)/100, 5, 25);
+    if(miningNotification !== "Opal"){
+    text("+" + floor(player.power.mining)*player.runes.labour + " " + miningNotification,10,288);}
+    else{text("+" + floor(player.power.mining)*player.runes.labour + " <(Opal)>", 0,288);}
+}
+function drawResource(){
+    background(backgroundColor);
+    //Draw the log
+    fill(92, 82, 53);
+    ellipse(40,40,50,50);
+    rect(40,15,70,50);
+    
+    fill(168, 140, 62);
+    ellipse(110,40,50,50);
+    
+    fill(194, 155, 46);
+    ellipse(110,40,40,40);
+    
+    fill(168, 140, 62);
+    ellipse(110,40,30,30);
+    
+    fill(194, 155, 46);
+    ellipse(110,40,20,20);
+    
+    fill(168, 140, 62);
+    ellipse(110,40,10,10);
+    
+    stroke(105, 96, 70);
+    strokeWeight(4);
+    line(25,38,75,38);
+    line(30,53,80,53);
+    line(30,23,80,23);
+    
+    //Stone
+    stroke(120);
+    fill(150);
+    ellipse(36,100+5,40,40);
+    ellipse(55,120+5,28,28);
+    ellipse(75,90+5,16,16);
+    
+    //Coal
+    stroke(40);
+    fill(60);
+    ellipse(36,170+5+5,40,40);
+    ellipse(55,190+5+5,28,28);
+    ellipse(75,160+5+5,16,16);
+    
+    //Copper
+    stroke(125, 106, 23);
+    fill(150, 122, 19);
+    ellipse(36,240+5+5+5,40,40);
+    ellipse(55,260+5+5+5,28,28);
+    ellipse(75,230+5+5+5,16,16);
+    
+    //Iron
+    stroke(200, 190, 190);
+    fill(220, 210, 210);
+    ellipse(36,310+5+5+5+5,40,40);
+    ellipse(55,330+5+5+5+5,28,28);
+    ellipse(75,300+5+5+5+5,16,16);
+    
+    //Titanium
+    stroke(175, 199, 177);
+    fill(195, 222, 197);
+    ellipse(216,100+5,40,40);
+    ellipse(235,120+5,28,28);
+    ellipse(255,90+5,16,16);
+    
+    //Silver
+    stroke(220, 220, 240);
+    fill(230, 230, 255);
+    ellipse(216,170+5+5,40,40);
+    ellipse(235,190+5+5,28,28);
+    ellipse(255,160+5+5,16,16);
+    
+    //Gold
+    stroke(242, 195, 8);
+    fill(255, 217, 0);
+    ellipse(216,240+5+5+5,40,40);
+    ellipse(235,260+5+5+5,28,28);
+    ellipse(255,230+5+5+5,16,16);
+    
+    //Opal
+    stroke(200, 60, 110);
+    fill(230, 90, 140);
+    ellipse(216,310+5+5+5+5,40,40);
+    ellipse(235,330+5+5+5+5,28,28);
+    ellipse(255,300+5+5+5+5,16,16);
+    
+    //Stats
+    fill(0);
+    textSize(30);
+    text(player.wood, 140, 50);
+    text(player.stone, 75, 130);
+    text(player.coal, 75, 205);
+    text(player.copper, 75, 280);
+    text(player.iron, 75, 355);
+    
+    text(player.titanium, 255, 130);
+    text(player.silver, 255, 205);
+    text(player.gold, 255, 280);
+    text(player.opal, 255, 355);
+    
+    fill(0, 0, 0);
+    textSize(15);
+    text("Press on a resource to sell it", 5, 12);
+    text("Stone", 30,80);
+    text("Coal", 30,155);
+    text("Copper", 30,230);
+    text("Iron", 30,305);
+    text("Titanium", 210,80);
+    text("Silver", 210,155);
+    text("Gold", 210,230);
+    text("Opal", 210,305);
+    
+    //Merchants sell?
+    textSize(15);
+    noStroke();
+    if(player.selling === true){fill(0,200,0);}
+    if(player.selling === false){fill(200, 0, 0);}
+    rect(8,376,175,19);
+    if(player.sellingVal === true){fill(0,200,0);}
+    if(player.sellingVal === false){fill(200, 0, 0);}
+    rect(202,376,196,19);
+    fill(0);
+    text("Merchant autosell? (Basics)", 10, 390);
+    text("Merchant autosell? (Valuables)", 205, 390);
+}
+function drawLumber(){
+    noStroke();
+    fill(150, 75, 0);
+    rect(150+jitter,150+jitter,100,260);
+    fill(backgroundColor);
+    ellipse(150+jitter,250+jitter,50,316);
+    ellipse(250+jitter,250+jitter,50,316);
+    fill(72, 138, 66);
+    ellipse(210+jitter,100+jitter,180,150);
+    fill(79, 150, 73);
+    ellipse(140+jitter,80+jitter,100,100);
+    fill(255, 255, 255);
+    ellipse(172+jitter,300+jitter,player.tree*1.15,10);
+    fill(0);
+    text(player.forests[0] + " Trees Left", 10, 390);
+    stroke(64, 107, 56);
+    fill(74, 128, 67);
+    strokeWeight(10);
+    rect(300,300,80,80);
+    fill(0);
+    textSize(20);
+    text("Forage",313,345);
+}
+function drawGarden(){
+    stroke(0);
+    strokeWeight(1);
+    fill(255-player.garden[0],255,0);
+    rect(0,0,200,200);
+    fill(255-player.garden[1],255,0);
+    rect(200,0,200,200);
+    fill(255-player.garden[2],255,0);
+    rect(0,200,200,200);
+    fill(255-player.garden[3],255,0);
+    rect(200,200,200,200);
+}
+function drawTools(){
+    fill(50);
+    stroke(200);
+    strokeWeight(5);
+    rect(0,0,133,133);
+    rect(133,0,133,133);
+    rect(267,0,133,133);
+    rect(0,133,133,133);
+    rect(133,133,133,133);
+    rect(267,133,133,133);
+    rect(0,267,133,133);
+    rect(133,267,133,133);
+    rect(267,267,133,133);
+    
+    drawArmor();
+    drawAxes();
+    drawWeapons();
+}
+function drawSkills(){
+    textSize(20);
+    fill(0);
+    text("Total Clicks: " + player.clicks, 10, 20);
+    text("Health: " + floor(player.health) + "/" + player.maxhealth, 10, 40);
+    text("Coins: " + player.coins, 10, 60);
+    text("Regeneration: " + round(player.regen*10)/10, 10, 80);
+    text("Raw Strength: " + floor(player.strength*100)/100, 10, 100);
+    text("Killed Opal Dragon: " + crown, 10, 120);
+    text("Kills: " + player.kills, 10, 140);
+    text("Fish Caught: " + player.allfish, 10, 160);
+    text("Deaths: " + player.deaths, 10, 180);
+    text("Combat  Level: " + floor(player.skills.combat), 10, 200);
+    text("Mining  Level: " + floor(player.skills.mining), 10, 220);
+    text("Logging  Level: " + floor(player.skills.chopping), 10, 240);
+    text("Fishing  Level: " + floor(player.skills.fishing), 10, 260);
+    text("Gathering  Level: " + floor(player.skills.gathering), 10, 280);
+    text("Workers: " + workers, 10, 300);
+    text("Hunger: " + ceil(player.hunger) + "/100", 10, 320);
+    text(ceil(player.realTime) + " Minutes Played", 10, 340);
+    text(ceil(player.gameTime) + " Days Lived", 10, 360);
+}
+function drawOcean(){
+    fill(242, 222, 177);
+    noStroke();
+    rect(0,200,400,200);
+    fill(151, 234, 247);
+    rect(0,0,400,200);
+    fill(0,0,200);
+    ellipse(200,250,600,100);
+    rect(0,150,400,100);
+    fill(255, 208, 0);
+    ellipse(200,50,50,50);
+    fill(0, 100, 120);
+        ellipse(20,20,30,30);
+        ellipse(30,20,25,25);
+        ellipse(40,20,20,20);
+        ellipse(48,20,15,15);
+        ellipse(54,20,10,10);
+        ellipse(60,20,5,10);
+        ellipse(62,20,5,15);
+        ellipse(64,20,5,20);
+        ellipse(66,20,5,25);
+        fill(255);
+        ellipse(15,20,6,8);
+        fill(0);
+        ellipse(14.5,20,3,4);
+    textSize(30);
+        fill(0);
+        text(player.fish,74,29);
+        textSize(20);
+        if(player.casted === false){
+        text(fishingNotification,10,392);}
+    if(player.casted === true){
+        noStroke();
+        fill(255);
+        ellipse(200,350,400,30);
+        fill(255,200,200);
+        ellipse(200,350,300,30);
+        fill(255,150,150);
+        ellipse(200,350,200,30);
+        fill(255,100,100);
+        ellipse(200,350,100,30);
+        fill(255,50,50);
+        ellipse(200,350,50,30);
+        fill(230,0,0);
+        ellipse(200,350,20,30);
+        fill(0, 0, 0);
+        ellipse(player.line,350,2,40);
+        
+        
+    }
+}
+function drawBank(){
+    stroke(255, 92, 92);
+    strokeWeight(5);
+    fill(255, 130, 130);
+    ellipse(50,50,80,80);
+    noStroke();
+    fill(255, 160, 160);
+    ellipse(48,47,60,60);
+    ellipse(52,53,60,60);
+    fill(255, 130, 130);
+    ellipse(50,50,50,70);
+    fill(255, 117, 117);
+    ellipse(50,50,40,50);
+    fill(0);
+    textSize(30);
+    text("Blood Pearl Market", 80, 390);
+    textSize(80);
+    text(player.pearls, 100, 76);
+    stroke(255, 92, 92);
+    strokeWeight(5);
+    fill(255, 130, 130);
+    rect(5,200,185,100);
+    rect(205,200,185,100);
+    fill(255, 92, 92);
+    text("Buy",29,270);
+    text("Sell",234,278);
+    fill(0);
+    textSize(30);
+    text("$" + round(player.pearlprice) + ".00", 10, 130);
+}
+function drawCasino(){
+    if(player.gambling === false){
+        textSize(54);
+        fill(0);
+        text("Begin Blackjack", 20, 190);
+        textSize(40);
+        text("$2,000", 140, 228);
+    }
+    if(player.gambling === true){
+        textSize(70);
+        fill(255);
+        strokeWeight(5);
+        stroke(0);
+        
+        for(var i = 0; i < player.cards.length; i++){
+            rect(10 + (i * 60),30, 50, 70);
+            fill(0);
+            text(player.cards[i],18 + (i*60),90);
+            fill(255);
+        }
+        for(var i = 0; i < player.dcards.length; i++){
+            rect(10 + (i * 60),310, 50, 70);
+            fill(0);
+            text(player.dcards[i],18 + (i*60),370);
+            fill(255);
+        }
+        
+        rect(300, 100, 75, 75);
+        rect(300, 200, 75, 75);
+        
+        fill(0);
+        textSize(40);
+        text("Hit",311,153);
+        textSize(27);
+        text("Stand",307,245);
+        text("Your Cards",5,23);
+        textSize(70);
+        text(arrayTotal(player.cards), 15, 160);
+        text(arrayTotal(player.dcards), 15, 300);
+        
+        if(arrayTotal(player.cards) > 21){player.gambling = false;}
+    }
+}
+function drawTheRoom(){
+    textSize(25);
+    fill(0);
+    text("What will you sacrifice?", 14, 25);
+    strokeWeight(5);
+    stroke(180);
+    fill(200);
+    if(player.maxhealth >= 1000){fill(200, 0, 0);}
+    rect(10,75,360,50);
+    fill(200);
+    if(player.runes.labour >= 20){fill(200, 0, 0);}
+    rect(10,145,360,50);
+    rect(10,215,360,50);
+    fill(200);
+    if(player.regen >= 10){fill(200, 0, 0);}
+    rect(10,285,360,50);
+    textSize(30);
+    fill(0);
+    text("100 Silver: +10 Max Health", 20, 110);
+    text("1,000 Silver: +1x Labour xp", 20, 180);
+    text("100 Gold: +1x Labour xp", 20, 250);
+    textSize(26);
+    text("1,000 Gold: + 0.1 Regeneration", 18, 319);
+}
+function drawShop(){
+    fill(0);
+    textSize(20);
+    text("What would you like today?", 20, 20);
+    text("(We only sell 12-packs)", 40, 40);
+    strokeWeight(10);
+    stroke(0, 0, 150);
+    fill(0, 0, 200);
+    rect(5,195,390,200);
+    rect(200,195,195,200);
+    fill(0,0);
+    rect(5,195,390,100);
+    fill(0, 0, 150);
+    textSize(30);
+    text("12 Silver", 44, 230);
+    text("$1,500", 56, 277);
+    text("12 Gold", 244, 230);
+    text("$5,000", 256, 277);
+    text("12 Opals", 44, 330);
+    text("$30,000", 56, 377);
+    text("12 Meat", 244, 330);
+    text("$2,000", 256, 377);
+}
+function drawWorkers(){
+    strokeWeight(5);
+    stroke(0, 150, 0);
+    fill(0, 200, 0);
+    hold = 20;
+    rect(hold,100,150,50);
+    rect(hold,160,150,50);
+    rect(hold,220,150,50);
+    rect(hold,280,150,50);
+    rect(hold,340,150,50);
+    hold = 220;
+    stroke(150, 0, 0);
+    fill(200, 0, 0);
+    rect(hold,100,150,50);
+    rect(hold,160,150,50);
+    rect(hold,220,150,50);
+    rect(hold,280,150,50);
+    rect(hold,340,150,50);
+    fill(0);
+    textSize(20);
+    text("Hey boss!", 5, 20);
+    text("Hire Miner", 48, 133);
+    text("Hire Lumberjack", 27, 192);
+    text("Hire Fisherman", 32, 251);
+    text("Hire Warrior", 42, 311);
+    text("Hire Merchant", 35, 371);
+    
+    text("Fire Miner", 253, 133);
+    text("Fire Lumberjack", 227, 192);
+    text("Fire Fisherman", 232, 251);
+    text("Fire Warrior", 242, 311);
+    text("Fire Merchant", 235, 371);
+    
+    text(player.workers.miners, 176, 133);
+    text(player.workers.lumberjacks, 176, 192);
+    text(player.workers.fishermen, 176, 251);
+    text(player.workers.fighters, 176, 311);
+    text(player.workers.merchants, 176, 371);
+    
+    textSize(30);
+    text("Wages per second: " + workers*6, 4, 83);
+}
+function drawAdventure(){
+    background(200);
+    strokeWeight(10);
+    
+    fill(143, 255, 130);
+    stroke(102, 204, 124);
+    rect(10,10,180,180);
+    
+    fill(0, 150, 20);
+    stroke(0, 99, 20);
+    rect(210,10,180,180);
+    
+    fill(140, 67, 67);
+    stroke(92, 44, 44);
+    rect(10,210,180,180);
+    
+    fill(196, 254, 255);
+    stroke(145, 190, 191);
+    rect(210,210,180,180);
+
+    fill(0);
+    textSize(43);
+    text("Plains", 50, 118);
+    text("Forest", 250, 119);
+    text("Dungeon", 25, 312);
+    text("Peaks", 251, 317);
+    
+    textSize(30);
+    text("level:        I", 30, 170);
+    text("level:     IIX", 230, 170);
+    text("level:  XXV", 30, 370);
+    text("level:    LX", 230, 370);
+}
+function drawDrops(){
+    fill(0, 128, 255);
+    ellipse(40,40,50,50);
+    ellipse(55,55,30,30);
+    ellipse(49,20,20,20);
+    
+    fill(225, 225, 175);
+    ellipse(20,100,20,20);
+    ellipse(30,90,20,20);
+    ellipse(50,130,20,20);
+    ellipse(60,120,20,20);
+    stroke(225, 225, 175);
+    strokeWeight(20);
+    line(30,100,50,120);
+    noStroke();
+    
+    fill(0, 54, 130);
+    triangle(20,148,65,190,45,205);
+    
+    for(var i = 0; i < 5; i++){
+    fill(0);
+    ellipse(70 - i*5,330 + i*20,200,200);
+    fill(255);
+    ellipse(80,340 + i*20,200,200);
+    }
+    fill(0);
+    textSize(50);
+    textAlign(LEFT, CENTER);
+    text(player.goo,80,40);
+    text(player.bones,80,107);
+    text(player.spikes,80,172);
+    textSize(70);
+    text(player.wings - 1,125,300);
+    textAlign(TOP, LEFT);
+
+}
+function drawGym(){
+    if(inSchool){
+    fill(0, 200, 250);
+    stroke(0, 180, 225);
+    strokeWeight(10);
+    rect(60,70,120,200);
+    
+    fill(250, 0, 0);
+    stroke(200, 0, 0);
+    rect(220,70,120,200);
+    
+    textAlign(TOP, LEFT);
+    textSize(30);
+    fill(250, 0, 0);
+    text("Gains: " + round(muscle*100)/100,220,310);
+    text("💪: " + round(player.strength*100)/100,220,350);
+    
+    fill(0, 200, 250);
+    text("🧠: " + round(intel*1000)/1000,56,310);
+    
+    textSize(70);
+    text("🧠",70,203);
+    text("💪",233,203);}
+    else{
+        textSize(35);
+        fill(0);
+        textAlign(CENTER,CENTER);
+        text("Click anywhere to Enroll",200,150);
+        textAlign(TOP, LEFT);
+        textSize(20);
+        fill(200, 0, 0);
+        text("WARNING: Enrolling in school can lead to alot of buffs, but only if you pay attention, if your playing a more passive play-style than this will not be recomended, but this will add alot of damage to swords & staffs alike if you know how to (ab)use the system.",25,200,350,200);
+    }
+}
+function drawPlains(){
+    //Draws background
+    background(0, 200, 255);
+    fill(255, 217, 0);
+    stroke(242, 255, 0);
+    strokeWeight(10);
+    ellipse(88, 78, 70, 70);
+    noStroke();
+    fill(0, 180, 0);
+    ellipse(250, 293, 430, 300);
+    ellipse(78, 317, 367, 257);
+    
+    //Draws button
+    fill(0, 140, 30);
+    stroke(0, 110, 20);
+    strokeWeight(6);
+    rect(20,300,360,80);
+    fill(0, 80, 0);
+    textSize(60);
+    text("Explore",105,355);
+    
+    //Draw Notification
+    fill(0);
+    textSize(15);
+    text(exploreNotification,27,288);
+}
+function drawForest(){
+    //Draws background
+    background(0, 200, 255);
+    fill(255, 217, 0);
+    stroke(242, 255, 0);
+    strokeWeight(10);
+    ellipse(88, 78, 70, 70);
+    noStroke();
+    fill(0, 180, 0);
+    ellipse(250, 293, 430, 300);
+    ellipse(78, 317, 367, 257);
+    
+    //Draw Trees
+    fill(100, 50, 0);
+    rect(200,200,15,50,5);
+    rect(319,125,15,50,5);
+    rect(58,164,15,50,5);
+    rect(155,130,15,50,5);
+    rect(293,226,15,50,5);
+    rect(119,234,15,50,5);
+    
+    //Draw leaves
+    fill(0, 120, 0);
+    ellipse(207,200,30,30);
+    ellipse(326,125,30,30);
+    ellipse(65,164,30,30);
+    ellipse(162,130,30,30);
+    ellipse(300,226,30,30);
+    ellipse(126,234,30,30);
+    
+    //Draws button
+    fill(0, 140, 30);
+    stroke(0, 110, 20);
+    strokeWeight(6);
+    rect(20,300,360,80);
+    fill(0, 80, 0);
+    textSize(60);
+    text("Explore",105,355);
+    
+    //Draw Notification
+    fill(0);
+    textSize(15);
+    text(exploreNotification,27,288);
+}
+function drawDungeon(){
+    //Draws background
+    background(90, 80, 80);
+    fill(40, 30, 30);
+    rect(0, 0, 200, 400);
+    fill(60, 30, 30);
+    rect(200, 0, 200, 400);
+    fill(20, 10, 10);
+    rect(150, 0, 100, 100);
+    fill(60, 50, 50);
+    quad(0, 400, 400, 400, 250, 100, 150, 100);
+    fill(80,0,0);
+    ellipse(190, 30, 10, 10);
+    ellipse(210, 33, 10, 10);
+    fill(80,0,0,100);
+    ellipse(190, 30, 15, 15);
+    ellipse(210, 33, 15, 15);
+    
+    //Draws button
+    fill(140);
+    stroke(110);
+    strokeWeight(6);
+    rect(20,300,360,80);
+    fill(80);
+    textSize(60);
+    text("Explore",105,355);
+    
+    //Draw Notification
+    fill(255);
+    textSize(15);
+    text(exploreNotification,27,288);
+}
+function drawPeaks(){
+    //Draws background
+    background(199, 255, 240);
+    fill(100,100,110);
+    triangle(75,400,325,400,200,70);
+    triangle(0,400,200,400,100,140);
+    triangle(400,400,200,400,300,210);
+    
+    //snow caps
+    fill(230,240,250);
+    triangle(165,150,235,150,200,60);
+    triangle(65,220,135,220,100,130);
+    triangle(335,270,265,270,300,200);
+    
+    //Wind and details
+    fill(255, 255, 255);
+    ellipse(70,50,60,20);
+    ellipse(99,59,60,20);
+    ellipse(339,138,60,20);
+    ellipse(309,148,60,20);
+    
+    //opal dragon
+    fill(255, 0, 200);
+    ellipse(200,60,10,10);
+    triangle(200,60,210,60,210,50);
+    triangle(200,60,190,50,190,60);
+
+    
+    //Draws button
+    fill(140,140,160);
+    stroke(110,110,130);
+    strokeWeight(6);
+    rect(20,300,360,80);
+    fill(80,80,100);
+    textSize(60);
+    text("Explore",105,355);
+    
+    //Draw Notification
+    fill(0);
+    textSize(15);
+    text(exploreNotification,27,288);
+}
+function explorePlains(){
+    num = ceil(random(0,100));
+    
+    if(num < 20){
+        exploreNotification = "+" + ceil(player.runes.labour/3) + " Berries";
+        player.berries += ceil(player.runes.labour/3);
+    }
+    else if(num < 40){
+        exploreNotification = "+1 Tree";
+        player.forests[0] += 1;
+    }
+    else if(num < 80){
+        exploreNotification = "Nothing...";
+    }
+    else if(num < 100){
+        player.UI = "fighting";
+        num = ceil(random(0,100));
+        
+        if(num < 40){ // 40%
+            enemy.name = "slime";
+            player.UI = "fight";
+            
+            enemy.shine = (ran(0,ran(0,ran(0,ran(0,ran(0,ran(0,ran(0,100))))))));
+            enemy.health = ran(ran(80,120),ran(80,120)) * enemy.shine;
+            enemy.regen = ran(2,5) * enemy.shine;
+            enemy.defense = ran(2,7) * enemy.shine;
+            enemy.attack = ran(ran(5,10),ran(5,10)) * enemy.shine;
+        }
+        else if(num < 60){ // 20%
+            enemy.name = "rockslime";
+            player.UI = "fight";
+            
+            enemy.shine = (ran(0,ran(0,ran(0,ran(0,ran(0,ran(0,ran(0,100))))))));
+            enemy.health = ran(ran(100,300),ran(100,300)) * enemy.shine;
+            enemy.regen = ran(1,2) * enemy.shine;
+            enemy.defense = ran(10,20) * enemy.shine;
+            enemy.attack = ran(ran(1,15),ran(1,15)) * enemy.shine;
+        }
+        else if(num < 100){ // 40%
+            enemy.name = "slimapede";
+            player.UI = "fight";
+            
+            enemy.shine = (ran(0,ran(0,ran(0,ran(0,ran(0,ran(0,ran(0,100))))))));
+            enemy.health = ran(ran(100,200),ran(100,200)) * enemy.shine;
+            enemy.regen = ran(4,9) * enemy.shine;
+            enemy.defense = ran(1,3) * enemy.shine;
+            enemy.attack = ran(ran(3,11),ran(3,11)) * enemy.shine;
+        }
+    }
+}
+function exploreForest(){
+    num = ceil(random(0,100));
+    
+    if(num < 40){
+        hold = ran(2,ran(2,30));
+        exploreNotification = "+" + hold + " Trees";
+        player.forests[0] += hold;
+    }
+    else if(num < 80){
+        exploreNotification = "Nothing...";
+    }
+    else if(num < 100){
+        player.UI = "fighting";
+        num = ceil(random(0,100));
+        
+        if(num < 40){ // 40%
+            enemy.name = "frog";
+            player.UI = "fight";
+            
+            enemy.shine = (ran(0,ran(0,ran(0,ran(0,ran(0,ran(0,ran(0,100))))))));
+            enemy.health = ran(ran(140,200),ran(140,200)) * enemy.shine;
+            enemy.regen = ran(4,9) * enemy.shine;
+            enemy.defense = ran(2,7) * enemy.shine;
+            enemy.attack = ran(ran(5,10),ran(5,10)) * enemy.shine;
+            
+        }
+        else if(num < 60){ // 20%
+            enemy.name = "spikedslime";
+            player.UI = "fight";
+            
+            enemy.shine = (ran(0,ran(0,ran(0,ran(0,ran(0,ran(0,ran(0,100))))))));
+            enemy.health = ran(ran(80,120),ran(80,120)) * enemy.shine;
+            enemy.regen = ran(1,2) * enemy.shine;
+            enemy.defense = ran(2,5) * enemy.shine;
+            enemy.attack = ran(ran(10,25),ran(10,25)) * enemy.shine;
+        }
+        else if(num < 100){ // 40%
+            enemy.name = "slime";
+            player.UI = "fight";
+            
+            enemy.shine = (ran(0,ran(0,ran(0,ran(0,ran(0,ran(0,ran(0,100))))))));
+            enemy.health = ran(ran(80,120),ran(80,120)) * enemy.shine;
+            enemy.regen = ran(2,5) * enemy.shine;
+            enemy.defense = ran(2,7) * enemy.shine;
+            enemy.attack = ran(ran(5,10),ran(5,10)) * enemy.shine;
+        }
+    }
+}
+function exploreDungeon(){
+    num = ceil(random(0,100));
+    
+    if(num < 40){
+        exploreNotification = "You hear screams...";
+    }
+    else if(num < 80){
+        chest(0,exploreNotification);
+    }
+    else if(num < 100){
+        player.UI = "fighting";
+        exploreNotification = "You just had a fight!";
+        num = ceil(random(0,100));
+        
+        if(num < 30){ // 30%
+            enemy.name = "skeleton";
+            player.UI = "fight";
+            
+            enemy.shine = (ran(0,ran(0,ran(0,ran(0,ran(0,ran(0,ran(0,100))))))));
+            enemy.health = ran(ran(300,500),ran(300,500)) * enemy.shine;
+            enemy.regen = ran(15,25) * enemy.shine;
+            enemy.defense = ran(15,25) * enemy.shine;
+            enemy.attack = ran(ran(10,20),ran(10,20)) * enemy.shine;
+            
+        }
+        else if(num < 60){ // 30%
+            enemy.name = "spikedslime";
+            player.UI = "fight";
+            
+            enemy.shine = (ran(0,ran(0,ran(0,ran(0,ran(0,ran(0,ran(0,100))))))));
+            enemy.health = ran(ran(80,120),ran(80,120)) * enemy.shine;
+            enemy.regen = ran(1,2) * enemy.shine;
+            enemy.defense = ran(2,5) * enemy.shine;
+            enemy.attack = ran(ran(10,25),ran(10,25)) * enemy.shine;
+        }
+        else if(num < 90){ // 30%
+            enemy.name = "bubbler";
+            player.UI = "fight";
+            
+            enemy.shine = (ran(0,ran(0,ran(0,ran(0,ran(0,ran(0,ran(0,100))))))));
+            enemy.health = ran(ran(50,150),ran(50,150)) * enemy.shine;
+            enemy.regen = ran(30,50) * enemy.shine;
+            enemy.defense = ran(2,5) * enemy.shine;
+            enemy.attack = ran(ran(15,20),ran(15,20)) * enemy.shine;
+        }
+        else if(num < 100){ // 10%
+            enemy.name = "golem";
+            player.UI = "fight";
+            
+            enemy.shine = (ran(0,ran(0,ran(0,ran(0,ran(0,ran(0,ran(0,100))))))));
+            enemy.health = ran(ran(180,320),ran(180,320)) * enemy.shine;
+            enemy.regen = ran(2,5) * enemy.shine;
+            enemy.defense = ran(70,120) * enemy.shine;
+            enemy.attack = ran(ran(20,30),ran(20,30)) * enemy.shine;
+        }
+    }
+}
+function explorePeaks(){            enemy.shine = (ran(0,ran(0,ran(0,ran(0,ran(0,ran(0,ran(0,100))))))));
+        num = ceil(random(0,100));
+        
+    if(num < 40){
+        hold = ran(1,ran(1,ran(1,ran(1,1000))));
+        exploreNotification = "You steal " + hold + " gold from the dragon's den!";
+        player.gold += hold;
+    }
+    else if(num < 80){
+        chest(0,exploreNotification);
+        chest(0,exploreNotification);
+    }
+    else if(num < 100){
+        player.UI = "fighting";
+        num = ceil(random(0,100));
+        if(num < 2 || player.kills % 500 === 0){ // 2%
+            enemy.name = "opal dragon";
+            player.UI = "fight";
+            
+            enemy.shine = (ran(0,ran(0,ran(0,ran(0,ran(0,ran(0,ran(0,100))))))));
+            enemy.health = ran(ran(2000,3000),ran(2000,3000)) * enemy.shine;
+            enemy.regen = ran(30,50) * enemy.shine;
+            enemy.defense = ran(30,50) * enemy.shine;
+            enemy.attack = ran(ran(50,200),ran(50,200)) * enemy.shine;
+            
+        }
+        else if(num < 10){ // 8%
+            enemy.name = "dragon";
+            player.UI = "fight";
+            
+            enemy.shine = (ran(0,ran(0,ran(0,ran(0,ran(0,ran(0,ran(0,100))))))));
+            enemy.health = ran(ran(1000,2000),ran(1000,2000)) * enemy.shine;
+            enemy.regen = ran(20,30) * enemy.shine;
+            enemy.defense = ran(20,30) * enemy.shine;
+            enemy.attack = ran(ran(10,200),ran(10,200)) * enemy.shine;
+            
+        }
+        else if(num < 40){ // 30%
+            enemy.name = "whisper";
+            player.UI = "fight";
+            
+            enemy.shine = (ran(0,ran(0,ran(0,ran(0,ran(0,ran(0,ran(0,100))))))));
+            enemy.health = ran(ran(280,2120),ran(280,2120)) * enemy.shine;
+            enemy.regen = ran(21,22) * enemy.shine;
+            enemy.defense = ran(22,25) * enemy.shine;
+            enemy.attack = ran(ran(10,125),ran(10,125)) * enemy.shine;
+        }
+        else if(num < 70){ // 30%
+            enemy.name = "waver";
+            player.UI = "fight";
+            
+            enemy.shine = (ran(0,ran(0,ran(0,ran(0,ran(0,ran(0,100)))))));
+            enemy.health = ran(ran(250,2150),ran(250,2150)) * enemy.shine;
+            enemy.regen = ran(30,50) * enemy.shine;
+            enemy.defense = ran(20,100) * enemy.shine;
+            enemy.attack = ran(ran(15,200),ran(15,200)) * enemy.shine;
+        }
+        else if(num < 100){ // 30%
+            enemy.name = "golem";
+            player.UI = "fight";
+            
+            enemy.shine = (ran(0,ran(0,ran(0,ran(0,ran(0,ran(0,100)))))));
+            enemy.health = ran(ran(180,320),ran(180,320)) * enemy.shine;
+            enemy.regen = ran(2,5) * enemy.shine;
+            enemy.defense = ran(70,120) * enemy.shine;
+            enemy.attack = ran(ran(20,30),ran(20,30)) * enemy.shine;
+        }
+    }
+}
+function drawExplore(){
+    if(player.region === "plains"){drawPlains();}
+    else if(player.region === "forest"){drawForest();}
+    else if(player.region === "dungeon"){drawDungeon();}
+    else if(player.region === "peaks"){drawPeaks();}
+}
+function drawAscension(){
+    background(250, 240, 170);
+    fill(0);
+    textSize(29);
+    text("Become King?", 10, 30);
+    text("There are requirements.", 10, 60);
+    textSize(24);
+    text(" - Level 100 in all skills\n - $100,000,000 \n - Full Fephite armor \n - 1,000+ Workers \n - 1,000,000 Stone \n - Be ready to leave everything behind! \n - 2.0 Intelligence & 7.5 Raw Strength \n -  Deafeat the Opal Dragon", 20, 90);
+    
+    stroke(190, 170, 0);
+    fill(220, 200, 0);
+    strokeWeight(5);
+    rect(20,340,360,50);
+    
+    fill(190, 170, 0);
+    textSize(40);
+    text("Become King", 93, 376);
+}
+function forage(){
+    forageValue = random(1,100);
+    if(forageValue > 90){
+        if(forageValue < 95){player.berries+=player.runes.labour;}
+        else if(forageValue < 99){player.mushrooms+=player.runes.labour;}
+        else if(forageValue < 99.5){player.crops+=player.runes.labour;}
+        else if(forageValue < 99.9){player.meat+=player.runes.labour;}
+        else if(forageValue < 100){player.opal+=player.runes.labour;}
+    }
+}
+function grow(){
+    player.garden[0]-=1/30*player.runes.growth;
+    player.garden[1]-=1/30*player.runes.growth;
+    player.garden[2]-=1/30*player.runes.growth;
+    player.garden[3]-=1/30*player.runes.growth;
+}
+function becomeKing(){
+    player.meta = "king";
+    latch = {};
+}
+function minorTreasure(){
+    player.treasureValue = ceil(random(1,1000)) + player.tools.rod.orbs;
+    if(player.treasureValue <= 100 && player.treasureValue > 0){fishingNotification = "A Scarlet looking Pearl!"; player.pearls ++;}
+    
+    if(player.treasureValue <= 200 && player.treasureValue > 100){fishingNotification = "Some rusty scrap metal..."; player.iron += 8;}
+    
+    if(player.treasureValue <= 300 && player.treasureValue > 200){fishingNotification = "An entire school of fish..."; player.fish += 40;player.allfish += 40;}
+    
+    if(player.treasureValue <= 400 && player.treasureValue > 300){fishingNotification = "Piece of driftwood..."; player.wood += 2;}
+    
+    if(player.treasureValue <= 500 && player.treasureValue > 400){fishingNotification = "A food basket..."; player.berries += 10; player.meat += 2; player.crops += 7;}
+    
+    if(player.treasureValue <= 600 && player.treasureValue > 500){fishingNotification = "An old tree full of money..."; player.coins += 500; player.forests[0]++;}
+    
+    if(player.treasureValue <= 700 && player.treasureValue > 600){fishingNotification = "Some old jewelry"; player.silver += 2;player.gold += 1;}
+    
+    if(player.treasureValue <= 800 && player.treasureValue > 700){fishingNotification = "A ball of light blesses you..."; player.maxhealth += 2; player.muscle+=0.5;}
+    
+    if(player.treasureValue <= 900 && player.treasureValue > 800){fishingNotification = "Your wounds heal..."; player.health = player.maxhealth;}
+    
+    if(player.treasureValue <= 950 && player.treasureValue > 900){fishingNotification = "An entire old boat full of supplies!"; player.wood+=round(random(30,70)); player.coal+=round(random(20,30)); player.silver+=round(random(0,4)); player.gold+=round(random(0,2)); player.crops+=round(random(0,20)); player.opal+=round(Math.random());}
+    
+    if(player.treasureValue <= 960 && player.treasureValue > 950){fishingNotification = "A fish made of Silver!"; player.silver += round(random(2,5));}
+    
+    if(player.treasureValue <= 970 && player.treasureValue > 960){fishingNotification = "A fish made of Gold!"; player.gold += round(random(2,5));}
+    
+    if(player.treasureValue <= 980 && player.treasureValue > 970){fishingNotification = "A fish made of Opal!"; player.opal += round(random(1,3));}
+    
+    if(player.treasureValue <= 990 && player.treasureValue > 980){fishingNotification = "A spirit blesses you with energy!"; player.maxhealth += 20; player.runes.growth++; }
+    if(player.treasureValue <= 999 && player.treasureValue > 990){fishingNotification = "A map to an island! You own it now!"; player.land += round(random(10,30)); player.forests[0]+=round(random(0,200));}
+    
+    if(player.treasureValue >= 1000){fishingNotification = "Your veins glow with power of the Tidal God!"; player.maxhealth += 30; player.muscle++; player.intelligence++;
+    player.garden[0] = 0;
+    player.garden[1] = 0;
+    player.garden[2] = 0;
+    player.garden[3] = 0;
+    player.skills.fishing += 3;
+    player.regen += 0.1;
+    player.tools.rod.orbs ++;
+    }
+}
+function toolUpgrade(tool){
+
+if(tool.type==="none" && player.copper >= 100 && player.coal >= 100){
+    player.copper-=100; tool.type = "copper"; player.coal -= 100;}
+else if(tool.type==="copper" && player.iron >= 100 && player.coal >= 100){
+    player.iron-=100; tool.type = "iron"; player.coal -= 100;}
+else if(tool.type ==="iron" && player.titanium >= 100 && player.coal >= 100){
+    player.titanium-=100;tool.type = "titanium"; player.coal -= 100;}
+else if(tool.type ==="titanium" && player.opal >= 100 && player.coal >= 100){
+    player.opal-=100;tool.type = "opal"; player.coal -= 100;}
+else if(tool.type ==="opal" && player.fephite >= 100){
+    player.fephite-=100;tool.type = "fephite";}
+else if(tool.type ==="fephite" && player.chaosium >= 100){
+    player.chaosium-=100;tool.type = "chaosium";}
+else if(tool.type ==="chaosium" && player.yggleaf >= 100){
+    player.yggleaf-=100;tool.type = "yggleaf";}
+else if(tool.type === "yggleaf" && player.cosmicwood >= 100){
+    player.cosmicwood-=100;tool.type = "cosmicwood";}
+}
+function regeneration(){if(player.health < player.maxhealth && player.fighting === false)
+{player.health += player.regen/6000*player.hunger;}
+if(player.hunger <= 0){player.health -= 1/60; player.hunger = 0;}}
+function pearlCalculations(){
+    if(player.marketopen === true){
+    player.pearlprice = player.pearlprice + random(0,player.pearlgrowth);
+    player.pearlgrowth += random(-0.001,0.0010001);}
+    if(player.marketopen === false){player.pearlgrowth = 0; player.pearlprice = 144; player.pearls = 0; player.marketopen = true;}
+    if(player.pearlprice <= 0){player.marketopen = false;}
+}
+function merchantCalculations(){
+    if(player.wood >= player.workers.merchants && player.selling === true){
+    player.wood -= player.workers.merchants;
+    player.coins += player.workers.merchants*11;}
+    else if(player.wood < player.workers.merchants && player.selling === true){
+        hold = player.wood; player.coins+=hold*11; player.wood = 0;
+    }
+    
+    if(player.stone >= player.workers.merchants && player.selling === true){
+    player.stone -= player.workers.merchants;
+    player.coins += player.workers.merchants*1;}
+    else if(player.stone < player.workers.merchants && player.selling === true){
+        hold = player.stone; player.coins+=hold*1; player.stone = 0;
+    }
+    
+    if(player.coal >= player.workers.merchants && player.selling === true){
+    player.coal -= player.workers.merchants;
+    player.coins += player.workers.merchants*3;}
+    else if(player.coal < player.workers.merchants && player.selling === true){
+        hold = player.coal; player.coins+=hold*3; player.coal = 0;
+    }
+    
+    if(player.copper >= player.workers.merchants && player.selling === true){
+    player.copper -= player.workers.merchants;
+    player.coins += player.workers.merchants*9;}
+    else if(player.copper < player.workers.merchants && player.selling === true){
+        hold = player.copper; player.coins+=hold*9; player.copper = 0;
+    }
+    
+    if(player.iron >= player.workers.merchants && player.selling === true){
+    player.iron -= player.workers.merchants;
+    player.coins += player.workers.merchants*13;}
+    else if(player.iron < player.workers.merchants && player.selling === true){
+        hold = player.iron; player.coins+=hold*13; player.iron = 0;
+    }
+    
+    if(player.titanium >= player.workers.merchants && player.selling === true){
+    player.titanium -= player.workers.merchants;
+    player.coins += player.workers.merchants*28;}
+    else if(player.titanium < player.workers.merchants && player.selling === true){
+        hold = player.titanium; player.coins+=hold*28; player.titanium = 0;
+    }
+    
+    if(player.silver >= player.workers.merchants && player.sellingVal === true){
+    player.silver -= player.workers.merchants;
+    player.coins += player.workers.merchants*66;}
+    else if(player.silver < player.workers.merchants && player.sellingVal === true){
+        hold = player.silver; player.coins+=hold*66; player.silver = 0;
+    }
+    
+    if(player.gold >= player.workers.merchants && player.sellingVal === true){
+    player.gold -= player.workers.merchants;
+    player.coins += player.workers.merchants*165;}
+    else if(player.gold < player.workers.merchants && player.sellingVal === true){
+        hold = player.gold; player.coins+=hold*165; player.gold = 0;
+    }
+    
+    if(player.opal >= player.workers.merchants && player.sellingVal === true){
+    player.opal -= player.workers.merchants;
+    player.coins += player.workers.merchants*880;}
+    else if(player.opal < player.workers.merchants && player.sellingVal === true){
+        hold = player.opal; player.coins+=hold*880; player.opal = 0;
+    }
+    
+    if(player.fish >= player.workers.merchants && player.selling === true){
+    player.fish -= player.workers.merchants;
+    player.coins += player.workers.merchants*1;}
+    else if(player.fish < player.workers.merchants && player.selling === true){
+        hold = player.fish; player.coins+=hold*1; player.fish = 0;
+    }
+}
+function lumberjackCalculations(){
+    player.tree += player.workers.lumberjacks*5;
+}
+function minerCalculations(){
+    for(var i = 0; i < player.workers.miners; i++){
+    miningBagChoice = round(random(1,100));
+        miningBagChoiceSave = round(random(1,100));
+        if(miningBagChoice > miningBagChoiceSave && player.skills.mining < 100){miningBagChoice = miningBagChoiceSave;}
+        if(miningBagChoice > miningBagChoiceSave && player.skills.mining < 90){miningBagChoice = miningBagChoiceSave;}
+        if(miningBagChoice > miningBagChoiceSave && player.skills.mining < 80){miningBagChoice = miningBagChoiceSave;}
+        if(miningBagChoice > miningBagChoiceSave && player.skills.mining < 70){miningBagChoice = miningBagChoiceSave;}
+        if(miningBagChoice > miningBagChoiceSave && player.skills.mining < 60){miningBagChoice = miningBagChoiceSave;}
+        if(miningBagChoice > miningBagChoiceSave && player.skills.mining < 50){miningBagChoice = miningBagChoiceSave;}
+        if(miningBagChoice > miningBagChoiceSave && player.skills.mining < 40){miningBagChoice = miningBagChoiceSave;}
+        if(miningBagChoice > miningBagChoiceSave && player.skills.mining < 30){miningBagChoice = miningBagChoiceSave;}
+        if(miningBagChoice > miningBagChoiceSave && player.skills.mining < 20){miningBagChoice = miningBagChoiceSave;}
+        if(miningBagChoice > miningBagChoiceSave && player.skills.mining < 10){miningBagChoice = miningBagChoiceSave;}
+        
+        if(miningBagChoice <= 20){player.stone+=player.power.mining*player.runes.labour; miningNotification = "Stone";}
+        if(miningBagChoice > 20 && miningBagChoice <= 35){player.coal+=player.power.mining*player.runes.labour; miningNotification = "Coal";}
+        if(miningBagChoice > 35 && miningBagChoice <= 51){player.copper+=player.power.mining*player.runes.labour; miningNotification = "Copper";}
+        if(miningBagChoice > 51 && miningBagChoice <= 67){player.iron+=player.power.mining*player.runes.labour; miningNotification = "Iron";}
+        if(miningBagChoice > 67 && miningBagChoice <= 78){player.titanium+=player.power.mining*player.runes.labour; miningNotification = "Titanium";}
+        if(miningBagChoice > 78 && miningBagChoice <= 91){player.silver+=player.power.mining*player.runes.labour; miningNotification = "Silver";}
+        if(miningBagChoice > 91 && miningBagChoice <= 97){player.gold+=player.power.mining*player.runes.labour; miningNotification = "Gold";}
+        if(miningBagChoice > 97 && miningBagChoice <= 100){player.opal+=player.power.mining*player.runes.labour; miningNotification = "Opal";}
+
+player.skills.mining+=(0.01/floor(player.skills.mining))*(player.runes.labour);}
+
+}
+function fishermanCalculations(){
+    player.allFish += player.workers.fishermen*player.runes.labour*2;
+    player.fish += player.workers.fishermen*player.runes.labour*2;
+    player.skills.fishing += player.workers.fishermen*0.01/floor(player.skills.fishing)*player.runes.labour;
+}
+function workerCalculations(){
+workers = player.workers.miners + player.workers.fishermen + player.workers.fighters + player.workers.lumberjacks + player.workers.merchants;
+    
+    //Workering doing work
+    if(player.coins >= workers){
+    merchantCalculations();
+    fishermanCalculations();
+    lumberjackCalculations();
+    minerCalculations();
+    
+    //Pay workers
+    player.coins -= workers*12;
+    }
+    
+    //If Bankrupt
+    if(player.coins <= 0){
+        player.workers.miners = 0;
+        player.workers.fishermen = 0;
+        player.workers.fighters = 0;
+        player.workers.lumberjacks = 0;
+        player.workers.farmers = 0;
+        player.workers.merchants = 0;
+    }
+}
+function damageCalculations(){
+    
+if(player.tools.sword.type === "copper"){hold = 1.5;}
+else if(player.tools.sword.type === "iron"){hold = 2;}
+else if(player.tools.sword.type === "titanium"){hold = 3;}
+else if(player.tools.sword.type === "opal"){hold = 5;}
+else if(player.tools.sword.type === "fephite"){hold = 30;}
+else if(player.tools.sword.type === "chaosium"){hold = 500;}
+    
+    hold *= player.strength;
+    
+    
+    return(hold);
+}
+function gymMath(){
+    if(intel >= 0.5){intel -= intel/300000*intel;}
+    if(muscle > -1){muscle -= 0.00001*player.strength;}
+    if(player.strength > 1){player.strength += muscle/1200/(player.strength*20);}
+}
+function learning(){
+    intel += (1/intel/intel)*0.001;
+}
+function exersize(){
+    muscle += 0.01;
+}
+function slimeDrops(){
+    player.goo += enemy.shine*ran(1,ran(1,ran(1,10)));
+
+player.skills.combat += (0.01 / floor(player.skills.combat)) * (player.wings) * player.power.slashing * ran(3,ran(3,ran(3,10)))*5;
+}
+function rockslimeDrops(){
+    player.goo += enemy.shine*ran(1,ran(1,ran(1,10)));
+    player.stone += enemy.shine*ran(1,ran(1,ran(1,30)));
+    player.coal += enemy.shine*ran(1,ran(1,ran(1,30)));
+    player.copper += enemy.shine*ran(1,ran(1,ran(1,20)));
+    player.iron += enemy.shine*ran(1,ran(1,ran(1,10)));
+
+player.skills.combat += (0.01 / floor(player.skills.combat)) * (player.wings) * player.power.slashing * ran(3,ran(3,ran(3,30))) * enemy.shine * 5;
+}
+function slimapedeDrops(){
+    player.goo += enemy.shine*ran(1,ran(1,ran(1,10)));
+
+player.skills.combat += (0.01 / floor(player.skills.combat)) * (player.wings) * player.power.slashing * ran(3,ran(3,ran(3,20))) * enemy.shine * 5;
+}
+function frogDrops(){
+    player.meat += enemy.shine*ran(1,ran(1,ran(1,10)))*2;
+
+player.skills.combat += (0.01 / floor(player.skills.combat)) * (player.wings) * player.power.slashing * ran(3,ran(3,ran(3,100))) * enemy.shine * 15;
+}
+function spikedslimeDrops(){
+    player.goo += enemy.shine*ran(1,ran(1,ran(1,10)));
+    player.spikes += enemy.shine*ran(1,ran(1,ran(1,10)));
+
+player.skills.combat += (0.01 / floor(player.skills.combat)) * (player.wings) * player.power.slashing * ran(3,ran(3,ran(3,100))) * enemy.shine * 10;
+}
+function skeletonDrops(){
+    player.bones += enemy.shine*ran(1,ran(1,ran(1,10)));
+
+player.skills.combat += (0.01 / floor(player.skills.combat)) * (player.wings) * player.power.slashing * ran(3,ran(3,ran(3,200))) * enemy.shine * 5;
+}
+function bubblerDrops(){
+    player.bones += enemy.shine*ran(1,ran(1,ran(1,10)));
+
+player.skills.combat += (0.01 / floor(player.skills.combat)) * (player.wings) * player.power.slashing * ran(3,ran(3,ran(3,200))) * enemy.shine * 5;
+}
+function waverDrops(){
+    player.fish += enemy.shine*ran(1,ran(1,ran(1,10)))*1000;
+    player.skills.fishing ++;
+
+player.skills.combat += (0.01 / floor(player.skills.combat)) * (player.wings) * player.power.slashing * ran(3,ran(3,ran(3,1000))) * enemy.shine * 50;
+}
+function golemDrops(){
+    player.silver += enemy.shine*ran(1,ran(1,ran(1,10)))*100;
+    player.skills.mining ++;
+
+player.skills.combat += (0.01 / floor(player.skills.combat)) * (player.wings) * player.power.slashing * ran(3,ran(3,ran(3,500))) * enemy.shine * 100;
+}
+function whisperDrops(){
+    player.kills += ran(1,2);
+    player.skills.gathering += ran(1,ran(1,ran(1,ran(1,ran(1,ran(1,100))))));
+
+player.skills.combat += (0.01 / floor(player.skills.combat)) * (player.wings) * player.power.slashing * ran(3,ran(3,ran(3,3000))) * enemy.shine * 50;
+}
+function dragonDrops(){
+    player.wings += enemy.shine*ran(1,ran(1,ran(1,10)));
+
+player.skills.combat += (0.01 / floor(player.skills.combat)) * (player.wings) * player.power.slashing * ran(3,ran(3,ran(3,12000))) * enemy.shine * 50;
+}
+function opalDragonDrops(){
+    player.wings += enemy.shine*ran(1,ran(1,ran(1,10)))*2;
+    player.opal += enemy.shine*ran(1,ran(1,ran(1,10)))*1000;
+    crown = true;
+    
+    player.skills.combat += (0.01 / floor(player.skills.combat)) * (player.wings) * player.power.slashing * ran(3,ran(3,ran(3,128000))) * enemy.shine * 50;
+}
+function battleWin(){
+    player.kills++;
+    enemy.health = 1;
+    if(enemy.name === "slime"){
+        slimeDrops();}
+    else if(enemy.name === "rockslime"){
+        rockslimeDrops();}
+    else if(enemy.name === "slimapede"){
+        slimapedeDrops();}
+    else if(enemy.name === "spikedslime"){
+        spikedslimeDrops();}
+    else if(enemy.name === "skeleton"){
+        skeletonDrops();}
+    else if(enemy.name === "bubbler"){
+        bubblerDrops();}
+    else if(enemy.name === "waver"){
+        waverDrops();}
+    else if(enemy.name === "golem"){
+        golemDrops();}
+    else if(enemy.name === "whisper"){
+        whisperDrops();}
+    else if(enemy.name === "dragon"){
+        dragonDrops();}
+    else if(enemy.name === "opaldragon"){
+        opalDragonDrops();}
+    player.UI = "explore";
+}
+function death(){
+    alive = false; player.UI = "dead"; stage = 1; soul = 100;}
+function bloodDrop(x, y){
+    fill(200, 0, 0);
+    ellipse(x,y,10,30);
+    fill(160, 0, 0);
+    rect(x-5,y+9,10,6);
+}
+function drawSlime(){
+    noStroke();
+    fill(80, 120, 200);
+    ellipse(200,200,100,80);
+    fill(backgroundColor);
+    rect(150,220,100,100);
+}
+function drawRockSlime(){
+    noStroke();
+    fill(102, 96, 88);
+    ellipse(200,200,100,80);
+    fill(backgroundColor);
+    rect(150,220,100,100);
+    fill(130, 120, 110);
+    ellipse(181,173,30,30);
+    ellipse(210,186,30,30);
+    ellipse(242,193,30,30);
+    ellipse(163,202,30,30);
+    ellipse(195,208,20,20);
+}
+function drawSpikedSlime(){
+    noStroke();
+    fill(60, 90, 150);
+    triangle(200,200,200,175,250,150);
+    triangle(200,200,200,175,150,150);
+    triangle(190,200,210,200,200,130);
+    triangle(200,200,200,175,280,180);
+    triangle(200,200,200,175,120,180);
+    fill(80, 120, 200);
+    ellipse(200,200,100,80);
+    fill(backgroundColor);
+    rect(150,220,100,100);
+}
+function drawSlimapede(){
+    stroke(60,90,150);
+    strokeWeight(4);
+    fill(80, 120, 200);
+    ellipse(252,224,20,20);
+    ellipse(245,234,25,25);
+    ellipse(231,241,31,31);
+    ellipse(213,241,39,39);
+    ellipse(196,225,45,45);
+    ellipse(186,202,50,50);
+    ellipse(195,179,55,55);
+    ellipse(197,158,60,60);
+    ellipse(183,141,65,65);
+    ellipse(164,133,70,70);
+    strokeWeight(6);
+    line(138,153,172,153);
+    ellipse(155,127,25,25);
+    point(157,127);
+}
+function drawFrog(){
+    noStroke();
+    fill(0, 150, 80);
+    ellipse(200,180,160,120);
+    ellipse(200,236,180,100);
+    ellipse(150,282,70,20);
+    ellipse(250,282,70,20);
+    fill(220, 220, 255);
+    ellipse(240,135,40,40);
+    ellipse(160,135,40,40);
+    fill(0, 0, 100);
+    ellipse(240,135,20,30);
+    ellipse(160,135,20,30);
+    fill(0);
+    noStroke();
+    ellipse(200,170,100,20);
+    fill(0);
+    fill(0, 135, 72);
+    ellipse(200,237,100,70);
+    fill(200, 0, 0);
+    rect(190,160,20,20);
+    ellipse(200,180,20,20);
+    strokeWeight(5);
+    stroke(160, 0, 0);
+    line(200,167,200,182);
+    stroke(0);
+    
+}
+function drawSkeleton(){
+    noStroke();
+    
+    //spine
+    fill(230, 230, 210);
+    ellipse(200,180,10,10);
+    ellipse(200,190,10,10);
+    ellipse(200,200,10,10);
+    ellipse(200,210,10,10);
+    ellipse(200,220,10,10);
+    ellipse(200,230,10,10);
+    ellipse(200,240,10,10);
+    
+    //arm
+    ellipse(200,190,120,10);
+    fill(240, 240, 220);
+    ellipse(250,190,6,20);
+    ellipse(150,190,6,20);
+    
+    //ribs
+    ellipse(200,150,50,40);
+    rect(185,160,30,20);
+    ellipse(200,185,50,5);
+    ellipse(200,195,50,5);
+    ellipse(200,205,50,5);
+    ellipse(200,215,50,5);
+    ellipse(200,225,50,5);
+    ellipse(200,235,50,5);
+    
+    //hip
+    ellipse(191,248,20,20);
+    ellipse(209,248,20,20);
+    ellipse(200,252,30,20);
+    
+    //femur
+    fill(230, 230, 210);
+    ellipse(185,265,10,40);
+    ellipse(215,265,10,40);
+    
+    //feet
+    ellipse(182,305,20,10);
+    ellipse(218,305,20,10);
+    
+    //eyes
+    ellipse(210,150,10,20);
+    ellipse(190,150,10,20);
+    
+    //Teeth
+    rect(190,164,20,16);
+    
+    //calf
+    fill(240, 240, 220);
+    ellipse(185,290,8,40);
+    ellipse(215,290,8,40);
+    rect(196,164,8,16);
+}
+function drawBubbler(){
+    noStroke();
+    fill(160, 0, 0);
+    ellipse(172,233,132,81);
+    ellipse(221,244,124,73);
+    
+    bloodDrop(221,255);
+    bloodDrop(250,242);
+    bloodDrop(234,219);
+    bloodDrop(156,248);
+    bloodDrop(194,232);
+    bloodDrop(177,202);
+    bloodDrop(123,208);
+    bloodDrop(144,219);
+    bloodDrop(131,241);
+    
+    fill(200, 0, 0);
+    ellipse(177,148,10,30);
+    ellipse(235,159,10,30);
+    ellipse(124,156,10,30);
+    ellipse(204,164,10,30);
+    ellipse(152,108,10,30);
+    
+}
+function drawWaver(){
+    noStroke();
+    fill(38, 119, 212);
+    ellipse(180,200,100,133);
+    fill(31, 104, 186);
+    ellipse(194,205,100,138);
+    fill(backgroundColor);
+    ellipse(217,205,64,117);
+    fill(0, 80, 160);
+    ellipse(200,250,150,50);
+}
+function drawGolem(){
+    noStroke();
+    //Darkness
+    fill(0, 20);
+    ellipse(200,200,200,200);
+    
+    //Body
+    fill(235, 255 ,255);
+    ellipse(190,190,30,50);
+    fill(230, 255 ,255);
+    ellipse(214,202,30,50);
+    fill(245, 255 ,255);
+    ellipse(208,158,30,50);
+    fill(232, 255 ,255);
+    ellipse(178,158,50,50);
+    fill(235, 255 ,255);
+    ellipse(179,243,30,50);
+    fill(230, 255 ,255);
+    ellipse(231,245,30,50);
+    fill(235, 255 ,255);
+    ellipse(231,221,30,30);
+    fill(240, 250 ,255);
+    ellipse(185,218,30,30);
+    fill(235, 255 ,255);
+    ellipse(173,152,30,30);
+    fill(225, 255 ,255);
+    ellipse(236,176,60,30);
+    
+    fill(185, 235 ,235);
+    ellipse(159,155,20,20);
+    ellipse(184,162,20,20);
+}
+function drawDragon(){
+    noStroke();
+    dragonColor = [color(60,40,0),color(90,60,0),color(120,80,0)];
+    
+    //Wing Background
+    fill(dragonColor[0]);
+    ellipse(200,200,150,150);
+    fill(dragonColor[1]);
+    ellipse(200,200,140,140);
+    fill(dragonColor[0]);
+    ellipse(200,200,130,130);
+    fill(dragonColor[1]);
+    ellipse(200,200,120,120);
+    fill(dragonColor[0]);
+    ellipse(200,200,110,110);
+    fill(dragonColor[1]);
+    ellipse(200,200,100,100);
+    
+    //Subtractions
+    fill(backgroundColor);
+    ellipse(200,140,25,40);
+    ellipse(230,190,18,25);
+    ellipse(170,190,18,25);
+    
+    
+    //Left Wing negitives
+    ellipse(145,240,20,20);
+    ellipse(160,235,20,20);
+    ellipse(173,225,20,20);
+    
+    //Right wing negitives
+    ellipse(255,240,20,20);
+    ellipse(240,235,20,20);
+    ellipse(227,225,20,20);
+    
+    //Foot Subtractions
+    ellipse(200,263,40,40);
+    ellipse(220,270,40,40);
+    ellipse(180,270,40,40);
+    
+    //Etc Head Negitives
+    ellipse(230,140,20,100);
+    ellipse(170,140,20,100);
+    ellipse(215,130,20,30);
+    ellipse(185,130,20,30);
+    
+    //Feet Negitives
+    ellipse(236,255,40,50);
+    ellipse(164,255,40,50);
+    
+    fill(dragonColor[1]);
+    //Body overdraw
+    ellipse(200,200,50,80);
+    
+    //Head overdraw
+    ellipse(200,175,50,50);
+    
+    //Fixed feet
+    ellipse(224,245,20,20);
+    ellipse(176,245,20,20);
+    
+    //Eyes
+    fill(dragonColor[2]);
+    ellipse(188,178,15,10);
+    ellipse(212,178,15,10);
+}
+function drawOpalDragon(){
+    noStroke();
+    
+dragonColor = [color(200,0,200),color(230,0,230),color(255,0,255)];
+
+    //Wing Background
+    fill(dragonColor[0]);
+    ellipse(200,200,150,150);
+    fill(dragonColor[1]);
+    ellipse(200,200,140,140);
+    fill(dragonColor[0]);
+    ellipse(200,200,130,130);
+    fill(dragonColor[1]);
+    ellipse(200,200,120,120);
+    fill(dragonColor[0]);
+    ellipse(200,200,110,110);
+    fill(dragonColor[1]);
+    ellipse(200,200,100,100);
+    
+    //Subtractions
+    fill(backgroundColor);
+    ellipse(200,140,25,40);
+    ellipse(230,190,18,25);
+    ellipse(170,190,18,25);
+    
+    
+    //Left Wing negitives
+    ellipse(145,240,20,20);
+    ellipse(160,235,20,20);
+    ellipse(173,225,20,20);
+    
+    //Right wing negitives
+    ellipse(255,240,20,20);
+    ellipse(240,235,20,20);
+    ellipse(227,225,20,20);
+    
+    //Foot Subtractions
+    ellipse(200,263,40,40);
+    ellipse(220,270,40,40);
+    ellipse(180,270,40,40);
+    
+    //Etc Head Negitives
+    ellipse(230,140,20,100);
+    ellipse(170,140,20,100);
+    ellipse(215,130,20,30);
+    ellipse(185,130,20,30);
+    
+    //Feet Negitives
+    ellipse(236,255,40,50);
+    ellipse(164,255,40,50);
+    
+    fill(dragonColor[1]);
+    //Body overdraw
+    ellipse(200,200,50,80);
+    
+    //Head overdraw
+    ellipse(200,175,50,50);
+    
+    //Fixed feet
+    ellipse(224,245,20,20);
+    ellipse(176,245,20,20);
+    
+    //Eyes
+    fill(dragonColor[2]);
+    ellipse(188,178,15,10);
+    ellipse(212,178,15,10);
+}
+function drawWindWhisper(){
+    noStroke();
+    fill(170, 170, 240);
+    ellipse(200,150,180,180);
+    fill(backgroundColor);
+    ellipse(220,170,170,170);
+    
+    fill(170, 170, 240);
+    ellipse(220,170,160,160);
+    fill(backgroundColor);
+    ellipse(180,130,150,150);
+    
+    fill(170, 170, 240);
+    ellipse(180,130,140,140);
+    fill(backgroundColor);
+    ellipse(220,170,130,130);
+    
+    fill(170, 170, 240);
+    ellipse(220,170,120,120);
+    fill(backgroundColor);
+    ellipse(180,130,110,110);
+    
+    fill(170, 170, 240);
+    ellipse(180,130,100,100);
+    fill(backgroundColor);
+    ellipse(220,170,90,90);
+    
+    fill(170, 170, 240);
+    ellipse(220,170,80,80);
+    fill(backgroundColor);
+    ellipse(180,130,70,70);
+    
+    fill(170, 170, 240);
+    ellipse(180,130,60,60);
+    fill(backgroundColor);
+    ellipse(220,170,50,50);
+    
+    fill(170, 170, 240);
+    ellipse(220,170,40,40);
+    fill(backgroundColor);
+    ellipse(180,130,30,30);
+    
+    fill(170, 170, 240);
+    ellipse(180,130,20,20);
+    fill(backgroundColor);
+    ellipse(220,170,10,10);
+}
+function drawThlayru(){
+    stroke(50,50,255,50);
+    for(var i = 0; i < 2000; i++){
+        strokeWeight(random(5,15));
+        point(random(random(random(100,300),random(100,300)),random(random(100,300),random(100,300))),random(random(random(100,300),300),300));
+    }
+}
+function drawEnonapr(){
+    stroke(50,50,255,50);
+for(var j = 0; j < 5; j++){
+stroke(random(210,240),random(210,240),255);
+hold = {xs: random(-1,1), ys: random(-1,1),x: 200,y: 200,};
+    for(var i = 0; i < 50; i++){
+        point(hold.x,hold.y);
+        strokeWeight(random(8,12));
+        hold.xs += random(-0.5,0.5);
+        hold.ys += random(-0.5,0.5);
+        
+        if(hold.xs > 4 || hold.xs < -4){hold.xs = (hold.xs - hold.xs*2)/2;}
+        if(hold.ys > 4 || hold.ys < -4){hold.ys = (hold.ys - hold.ys*2)/2;}
+        
+        hold.x += hold.xs;
+        hold.y += hold.ys;
+        
+    }}
+}
+function drawIsufrad(){
+    stroke(210, 190, 140, 20);
+    for(var i = 0; i < 1000; i++){
+        strokeWeight(random(5,15));
+        point(random(random(random(random(120,280),random(120,280)),random(random(120,280),random(120,280))),random(random(random(120,280),random(120,280)),random(random(120,280),random(120,280)))),random(random(random(random(120,280),random(120,280)),random(random(120,280),random(120,280))),random(random(random(120,280),random(120,280)),random(random(120,280),random(120,280)))));}}
+function drawZaele(){
+    stroke(130, 180, 200, 15);
+    for(var i = 0; i < 1500; i++){
+        strokeWeight(random(5,15));
+        point(random(random(100,300),random(100,300)),random(random(random(random(100,300),random(100,300)),random(random(100,300),random(100,300))),random(random(random(100,300),random(100,300)),random(random(100,300),random(100,300)))));}}
+function drawFephine1(){
+    for(var i = 0; i < 1500; i++){
+        stroke(0,random(150,255),random(100,150), 200);
+        strokeWeight(random(5,15));
+        point(random(random(random(120,280),random(120,280)),random(random(120,280),random(120,280))),random(random(random(120,280),random(120,280)),random(random(120,280),random(120,280))));}}
+function drawFephine2(){
+    for(var i = 0; i < 1500; i++){
+        stroke(random(150,random(150,200)), random(150,random(150,200)), random(150,random(150,200)), 30);
+        strokeWeight(random(5,15));
+        point(random(random(random(120,280),random(120,280)),random(random(120,280),random(120,280))),random(random(random(120,280),random(120,280)),random(random(120,280),random(120,280))));}}
+function drawChaos(){
+    for(var i = 0; i < 1500; i++){
+        stroke(random(50,200));
+        strokeWeight(random(2,8));
+        point(random(random(random(120,280),random(120,280)),random(random(120,280),random(120,280))),random(random(random(120,280),random(120,280)),random(random(120,280),random(120,280))));}
+}
+function drawEnemy(){
+    if(enemy.name === "slime"){drawSlime();}
+    else if(enemy.name === "rockslime"){drawRockSlime();}
+    else if(enemy.name === "slimapede"){drawSlimapede();}
+    else if(enemy.name === "spikedslime"){drawSpikedSlime();}
+    else if(enemy.name === "frog"){drawFrog();}
+    else if(enemy.name === "skeleton"){drawSkeleton();}
+    else if(enemy.name === "bubbler"){drawBubbler();}
+    else if(enemy.name === "whisper"){drawWindWhisper();}
+    else if(enemy.name === "waver"){drawWaver();}
+    else if(enemy.name === "golem"){drawGolem();}
+    else if(enemy.name === "dragon"){drawDragon();}
+    else if(enemy.name === "opal dragon"){drawOpalDragon();}
+}
+function drawEnemyStats(){
+    fill(0, 0, 0);
+    textFont(createFont("monospace"));
+    text(enemy.name, 20,30);
+    text("♥" + ceil(enemy.health), 20,60);
+    text("♥+" + enemy.regen, 20,90);
+    text("⚔" + enemy.attack, 20,120);
+    text("🛡" + enemy.defense,15,150);
+    text("~" + enemy.shine + "~", 20,180);
+    textFont(createFont("times"));
+}
+function drawFight(){
+    drawEnemy();
+    drawEnemyStats();
+}
+function playerDefenseMath(){
+    hold = 0;
+    
+    if(player.tools.helmet.type === "copper"){hold += 1;}
+    else if(player.tools.helmet.type === "iron"){hold += 3;}
+    else if(player.tools.helmet.type === "titanium"){hold += 6;}
+    else if(player.tools.helmet.type === "opal"){hold += 12;}
+    else if(player.tools.helmet.type === "fephite"){hold += 24;}
+    
+    if(player.tools.bodyplate.type === "copper"){hold += 1;}
+    else if(player.tools.bodyplate.type === "iron"){hold += 3;}
+    else if(player.tools.bodyplate.type === "titanium"){hold += 6;}
+    else if(player.tools.bodyplate.type === "opal"){hold += 12;}
+    else if(player.tools.bodyplate.type === "fephite"){hold += 24;}
+    
+    if(player.tools.boots.type === "copper"){hold += 1;}
+    else if(player.tools.boots.type === "iron"){hold += 3;}
+    else if(player.tools.boots.type === "titanium"){hold += 6;}
+    else if(player.tools.boots.type === "opal"){hold += 12;}
+    else if(player.tools.boots.type === "fephite"){hold += 24;}
+    
+    player.defense = hold;
+}
+function enemyAttack(){
+    playerDefenseMath();
+    if(player.defense < enemy.attack){
+    player.health -= enemy.attack - player.defense;}
+}
+function swingMath(){
+    if(player.tools.sword.type === "none"){
+        return round(player.strength*1)*ran(1,ran(1,ran(1,ran(1,ran(1,10)))))+player.wings;
+    }
+    else if(player.tools.sword.type === "copper"){
+        return round(player.strength*3)*ran(1,ran(1,ran(1,ran(1,ran(1,10)))))+player.wings;
+    }
+    else if(player.tools.sword.type === "iron"){
+        return round(player.strength*5)*ran(1,ran(1,ran(1,ran(1,ran(1,10)))))+player.wings;
+    }
+    else if(player.tools.sword.type === "titanium"){
+        return round(player.strength*10)*ran(1,ran(1,ran(1,ran(1,ran(1,10)))))+player.wings;
+    }
+    else if(player.tools.sword.type === "opal"){
+        return round(player.strength*25)*ran(1,ran(1,ran(1,ran(1,ran(1,10)))))+player.wings;
+    }
+    else if(player.tools.sword.type === "fephite"){
+        return round(player.strength*100)*ran(1,ran(1,ran(1,ran(1,ran(1,10)))))+player.wings;
+    }
+    else{return 0;}
+}
+function rebirth(){
+    alive = true;
+    player.hunger = 100;
+    player.health = 1;
+    player.UI = "main";
+    player.deaths++;
+}
+
+///////////////////////////////////////////////////////////////////
+
+function drawWorkerUI(){
+    textAlign(LEFT, BASELINE);
+    if(player.UI === "resources"){drawResource();}
+    else if(player.UI === "main"){drawMain();}
+    else if(player.UI === "mine"){drawMine();}
+    else if(player.UI === "food"){drawFood();}
+    else if(player.UI === "garden"){drawGarden();}
+    else if(player.UI === "tools"){drawTools();}
+    else if(player.UI === "help"){drawHelp();}
+    else if(player.UI === "lumber"){drawLumber();}
+    else if(player.UI === "skills"){drawSkills();}
+    else if(player.UI === "ocean"){drawOcean();}
+    else if(player.UI === "bank"){drawBank();}
+    else if(player.UI === "casino"){drawCasino();}
+    else if(player.UI === "theroom"){drawTheRoom();}
+    else if(player.UI === "shop"){drawShop();}
+    else if(player.UI === "workers"){drawWorkers();}
+    else if(player.UI === "adventure"){drawAdventure();}
+    else if(player.UI === "fight"){drawFight();}
+    else if(player.UI === "drops"){drawDrops();}
+    else if(player.UI === "gym"){drawGym();}
+    else if(player.UI === "leader"){drawAscension();}
+    else{drawExplore(); player.UI = "explore";}
+}
+
+//================================================================================//
+//================================================================================//
+//==================================When=Pressed==================================//
+//================================================================================//
+function drawAllButtons(){
+//drawObjectButton(buttonName,BColor,BStroke,BStrokeSize,BText,BTextColor,BTextSize)
+if(player.meta === "worker"){
+    
+    if(player.UI === "fight"){
+    buttons.fightSwing[4] = true;
+    buttons.fightCast[4] = true;
+    buttons.fightHeal[4] = true;
+    buttons.fightRun[4] = true;
+    
+drawObjectButton(buttons.fightSwing,color(150),color(120),5,"Swing",color(0),30);
+drawObjectButton(buttons.fightCast,color(150),color(120),5,"Cast",color(0),30);
+drawObjectButton(buttons.fightHeal,color(150),color(120),5,"Heal",color(0),30);
+drawObjectButton(buttons.fightRun,color(150),color(120),5,"Run",color(0),30);
+} //end of fight
+}
+}
+
+function keyWorker(){
+    if(player.UI === "help"){
+       if(str(key) === "c"){
+           helpText = help.combat;
+       }
+       else if(str(key) === "e"){
+           helpText = help.economic;
+       }
+       else if(str(key) === "s"){
+           helpText = help.skill;
+       }
+       else if(str(key) === "w"){
+           helpText = help.win;
+       }
+       else if(str(key) === "r"){
+           helpText = help.resource;
+       }
+       else if(str(key) === "d"){
+           helpText = help.death;
+       }
+       else if(str(key) === "x"){
+           helpText = help.school;
+       }
+       else if(str(key) === "t"){
+           helpText = help.tool;
+       }
+       else if(str(key) === "y"){
+           helpText = help.casino;
+       }
+       else if(str(key) === "h"){
+           helpText = help.health;
+       }
+    }
+    else if(player.meta === "worker"){
+    if(player.UI === "ocean" && keyCode === ENTER && player.casted !== true){
+        if(!player.casted){player.casted = true;}
+        player.line = (coinFlip() * 300) + round(random(10,50));
+         if(player.tools.rod.type === "copper"){player.power.fishing = 1;}
+        else if(player.tools.rod.type === "iron"){player.power.fishing = 3;}
+        else if(player.tools.rod.type === "titanium"){player.power.fishing = 5;}
+        else if(player.tools.rod.type === "opal"){player.power.fishing = 10;}
+        else if(player.tools.rod.type === "fephite"){player.power.fishing = 25;}
+        else{player.power.fishing = 0;}
+    }
+    
+    else if(player.UI === "ocean" && player.casted){
+    if(keyCode === ENTER && ((player.line >= 190 && player.line < 210) || (player.line > 190 && player.line < 210))){player.fish+=4*player.power.fishing;minorTreasure();player.casted = false;player.allfish += 4*player.power.fishing;player.skills.fishing+=(0.01/floor(player.skills.fishing))*(player.runes.labour)*player.power.fishing*200;}
+    
+    else if(keyCode === ENTER && ((player.line >= 175 && player.line < 190) || (player.line > 210 && player.line < 225))){player.fish+=3*player.power.fishing;fishingNotification = "Thats a hefty catfish!";player.casted = false;player.allfish += 3*player.power.fishing;player.skills.fishing+=(0.01/floor(player.skills.fishing))*(player.runes.labour)*player.power.fishing*50;}
+    
+    else if(keyCode === ENTER && ((player.line >= 150 && player.line < 175) || (player.line > 225 && player.line < 250))){player.fish+=2*player.power.fishing;fishingNotification = "Decent sized Carp!";player.casted = false;player.allfish += 2*player.power.fishing;player.skills.fishing+=(0.01/floor(player.skills.fishing))*(player.runes.labour)*player.power.fishing*20;}
+    
+    else if(keyCode === ENTER && ((player.line >= 100 && player.line < 150) || (player.line > 250 && player.line < 300))){player.fish+=1*player.power.fishing;fishingNotification = "A small minnow...";player.casted = false;player.allfish += 1*player.power.fishing;player.skills.fishing+=(0.01/floor(player.skills.fishing))*(player.runes.labour)*player.power.fishing*10;}
+    
+    else if(keyCode === ENTER && (player.line >= 300 || player.line < 100)){fishingNotification = "Nothing..."; player.casted = false;}
+
+    
+    }
+    if(player.UI !== "fight"){
+if(str(key) === " " && player.UI !== "fight"){player.UI = "main";}
+
+else if(str(key) === "r" && player.UI !== "resources"){
+    player.UI = "resources";}
+
+else if((str(key) === "?" || str(key) === "/")&& player.UI !== "help"){
+    player.UI = "help"; helpText = help.guide;}
+
+else if((str(key) === "m" || str(key) === "M")&& player.UI !== "mine"){
+    player.UI = "mine";}
+    
+else if((str(key) === "f" || str(key) === "F")&& player.UI !== "food"){
+    player.UI = "food";}
+    
+else if((str(key) === "g" || str(key) === "G")&& player.UI !== "garden"){
+    player.UI = "garden";}
+    
+else if((str(key) === "s" || str(key) === "S")&& player.UI !== "skills"){
+    player.UI = "skills";}
+    
+else if((str(key) === "a" || str(key) === "A")&& player.UI !== "adventure"){
+    player.UI = "adventure";}
+    
+else if((str(key) === "t" || str(key) === "T")&& player.UI !== "tools"){
+    player.UI = "tools";}
+    
+else if((str(key) === "l" || str(key) === "L")&& player.UI !== "lumber"){
+    player.UI = "lumber";}
+    
+else if((str(key) === "s" || str(key) === "S")&& player.UI !== "skills"){
+    player.UI = "skills";}
+    
+else if((str(key) === "4" || str(key) === "$")&& player.UI !== "shop"){
+    player.UI = "shop";}
+    
+else if((str(key) === "w" || str(key) === "W")&& player.UI !== "workers"){
+    player.UI = "workers";}
+    
+else if((str(key) === "o" || str(key) === "O")&& player.UI !== "ocean"){
+    player.UI = "ocean";}
+    
+else if((str(key) === "b" || str(key) === "B")&& player.UI !== "bank"){
+    player.UI = "bank";}
+    
+else if((str(key) === "q" || str(key) === "Q")&& player.UI !== "theroom"){
+    player.UI = "theroom";}
+    
+else if((str(key) === "y" || str(key) === "Y")&& player.UI !== "casino"){
+    player.UI = "casino";}
+    
+else if((str(key) === "d" || str(key) === "D")&& player.UI !== "drops"){
+    player.UI = "drops";}
+    
+else if((str(key) === "e" || str(key) === "E")&& player.UI !== "gym"){
+    player.UI = "gym";}
+else if((str(key) === "z" || str(key) === "Z")&& player.UI !== "leader"){
+    player.UI = "leader";}
+
+}//End of worker key from menu presses
+
+} // End of worker meta
+if(!alive){
+    if(stage === 1){
+        if(keyCode === UP){
+            latch.up = !latch.up;
+        }
+        else if(keyCode === DOWN){
+            latch.down = !latch.down;
+        }
+        else if(keyCode === LEFT){
+            latch.left = !latch.left;
+        }
+        else if(keyCode === RIGHT){
+            latch.right = !latch.right;
+        }
+    }
+    else if(stage === 2){
+        if(keyCode === CONTROL){if(latch.p > 210){stage = 3;} else{choke += 0.01;}}
+    }
+    else if(stage === 3){
+        if(str(key) === "b"){latch.b = ceil(random(0,20));}    
+        
+    }
+}
+}
+function keyKing(){}
+function keyGod(){}
+function keyFeph(){}
+
+function mouseWorker(){
+    jitter = random(-5,5);
+    if(player.UI === "help"){
+        player.UI = "main";
+    }
+    if(player.meta === "worker"){
+    if(player.UI === "resources"){
+        if(mouseY < 70 && mouseX < 250 && player.wood > 0){player.wood--; player.coins+=10;}
+        if(mouseY > 70 && mouseY < 145 && mouseX < 195 && player.stone > 0){player.stone--; player.coins+=1*intel;}
+        if(mouseY > 145 && mouseY < 220 && mouseX < 195 && player.coal > 0){player.coal--; player.coins+=3*intel;}
+        if(mouseY > 220 && mouseY < 295 && mouseX < 195 && player.copper > 0){player.copper--; player.coins+=8*intel;}
+        if(mouseY > 295 && mouseY < 370 && mouseX < 195 && player.iron > 0){player.iron--; player.coins+=12*intel;}
+        
+        if(mouseY > 70 && mouseY < 145 && mouseX > 195 && player.titanium > 0){player.titanium--; player.coins+=25*intel;}
+        if(mouseY > 145 && mouseY < 220 && mouseX > 195 && player.silver > 0){player.silver--; player.coins+=60*intel;}
+        if(mouseY > 220 && mouseY < 295 && mouseX > 195 && player.gold > 0){player.gold--; player.coins+=150*intel;}
+        if(mouseY > 295 && mouseY < 370 && mouseX > 195 && player.opal > 0){player.opal--; player.coins+=800*intel;}
+       
+       if(mouseY > 375){
+           if(mouseX > 200){player.sellingVal = !player.sellingVal;}
+           if(mouseX < 180){player.selling = !player.selling;}
+       }
+    }
+    
+    //Mining
+    if(mouseY >= 300 && player.UI === "mine"){
+        miningBagChoice = round(random(1,100));
+        miningBagChoiceSave = round(random(1,100));
+        if(miningBagChoice > miningBagChoiceSave && player.skills.mining < 100){miningBagChoice = miningBagChoiceSave;}
+        if(miningBagChoice > miningBagChoiceSave && player.skills.mining < 90){miningBagChoice = miningBagChoiceSave;}
+        if(miningBagChoice > miningBagChoiceSave && player.skills.mining < 80){miningBagChoice = miningBagChoiceSave;}
+        if(miningBagChoice > miningBagChoiceSave && player.skills.mining < 70){miningBagChoice = miningBagChoiceSave;}
+        if(miningBagChoice > miningBagChoiceSave && player.skills.mining < 60){miningBagChoice = miningBagChoiceSave;}
+        if(miningBagChoice > miningBagChoiceSave && player.skills.mining < 50){miningBagChoice = miningBagChoiceSave;}
+        if(miningBagChoice > miningBagChoiceSave && player.skills.mining < 40){miningBagChoice = miningBagChoiceSave;}
+        if(miningBagChoice > miningBagChoiceSave && player.skills.mining < 30){miningBagChoice = miningBagChoiceSave;}
+        if(miningBagChoice > miningBagChoiceSave && player.skills.mining < 20){miningBagChoice = miningBagChoiceSave;}
+        if(miningBagChoice > miningBagChoiceSave && player.skills.mining < 10){miningBagChoice = miningBagChoiceSave;}
+        
+        if(player.tools.pickaxe.type === "copper"){player.power.mining = 1;}
+        else if(player.tools.pickaxe.type === "iron"){player.power.mining = 2;}
+        else if(player.tools.pickaxe.type === "titanium"){player.power.mining = 3;}
+        else if(player.tools.pickaxe.type === "opal"){player.power.mining = 5;}
+        else if(player.tools.pickaxe.type === "fephite"){player.power.mining = 10;}
+        else if(player.tools.pickaxe.type === "chaosium"){player.power.mining = 100;}
+        
+        if(miningBagChoice <= 20){player.stone+=player.power.mining*player.runes.labour; miningNotification = "Stone";}
+        if(miningBagChoice > 20 && miningBagChoice <= 35){player.coal+=player.power.mining*player.runes.labour; miningNotification = "Coal";}
+        if(miningBagChoice > 35 && miningBagChoice <= 51){player.copper+=player.power.mining*player.runes.labour; miningNotification = "Copper";}
+        if(miningBagChoice > 51 && miningBagChoice <= 67){player.iron+=player.power.mining*player.runes.labour; miningNotification = "Iron";}
+        if(miningBagChoice > 67 && miningBagChoice <= 78){player.titanium+=player.power.mining*player.runes.labour; miningNotification = "Titanium";}
+        if(miningBagChoice > 78 && miningBagChoice <= 91){player.silver+=player.power.mining*player.runes.labour; miningNotification = "Silver";}
+        if(miningBagChoice > 91 && miningBagChoice <= 97){player.gold+=player.power.mining*player.runes.labour; miningNotification = "Gold";}
+        if(miningBagChoice > 97 && miningBagChoice <= 100){player.opal+=player.power.mining*player.runes.labour; miningNotification = "Opal";}
+        player.skills.mining+=(0.01/floor(player.skills.mining))*(player.runes.labour)*player.power.mining;
+    }
+    
+    //Lumberjacking
+    if(player.UI === "lumber" && player.forests[0] > 0 && mouseX < 300){
+        if(player.tools.axe.type === "copper"){player.power.chopping = 2*player.runes.labour;}
+        else if(player.tools.axe.type === "iron"){player.power.chopping = 3*player.runes.labour;}
+        else if(player.tools.axe.type === "titanium"){player.power.chopping = 6*player.runes.labour;}
+        else if(player.tools.axe.type === "opal"){player.power.chopping = 11*player.runes.labour;}
+        else if(player.tools.axe.type === "fephite"){player.power.chopping = 26*player.runes.labour;}
+        else if(player.tools.axe.type === "chaosium"){player.power.chopping = 51*player.runes.labour;}
+        if(player.tree < 100){player.tree+=player.power.chopping*player.runes.labour;
+        player.skills.chopping += 0.01 / floor (player.skills.chopping) * player.runes.labour * player.power.chopping;
+        }
+        else{player.tree = 0; player.wood+=round(random(2,5)); player.forests[0]--;}
+    } 
+    else if(player.forests[0] <= 0 && player.UI === "lumber"){player.UI = "main";}
+    if(mouseX > 300 && player.UI === "lumber"){forage(); player.skills.gathering+=0.01*player.runes.labour;}
+    
+    //Pantry
+    if(player.UI === "food"){
+        if(mouseY < 80 && player.berries > 0 && player.hunger < 100){player.berries--; player.hunger+=3;}
+    
+    if(mouseY > 80 && mouseY < 200 && player.crops > 0 && player.hunger < 100){player.crops--;player.hunger+=10;}
+    
+    if(mouseY > 200 && mouseY < 300 && player.mushrooms > 0 && player.hunger < 100){player.mushrooms--;player.hunger+=2;}
+    
+    if(mouseY > 300 && mouseY < 380 && player.meat > 0 && player.hunger < 100){player.meat--;player.hunger+=20;}}
+    
+    //Garden
+    if(player.UI === "garden"){
+    if(mouseY < 200 && mouseX < 200 && player.garden[0] < 0){
+        player.garden[0] = 255;
+        player.crops += round(random(2,3)*player.runes.labour);
+    }
+    
+    if(mouseY < 200 && mouseX > 200 && player.garden[1] < 0){
+        player.garden[1] = 255;
+        player.crops += round(random(2,3)*player.runes.labour);
+    }
+    
+    if(mouseY > 200 && mouseX < 200 && player.garden[2] < 0){
+        player.garden[2] = 255;
+        player.crops += round(random(2,3)*player.runes.labour);
+    }
+    
+    if(mouseY > 200 && mouseX > 200 && player.garden[3] < 0){
+        player.garden[3] = 255;
+        player.crops += round(random(2,3)*player.runes.labour);
+    }
+    }
+    
+    //Fishing
+    if(player.UI === "ocean" && player.fish > 0 && player.hunger < 100 && mouseY < 40 && mouseX < 70){player.fish--; player.hunger++;}
+
+    //Blood Pearls
+    if(player.UI === "bank" && mouseY > 200 && mouseY < 300){
+        if(mouseX > 200 && player.pearls > 0){player.pearls--; player.coins+=round(player.pearlprice);}
+        if(mouseX < 200 && player.coins >= player.pearlprice){player.pearls++;player.coins-=round(player.pearlprice);}
+    }
+    
+    //Equipment
+    if(player.UI === "tools"){
+        if(mouseX < 133 && mouseY < 133){
+            toolUpgrade(player.tools.pickaxe);}
+        if(mouseX > 133 && mouseX < 267 && mouseY < 133){
+            toolUpgrade(player.tools.sword);}
+        if(mouseX < 133 && mouseY < 267 && mouseY > 133){
+            toolUpgrade(player.tools.axe);}
+        if(mouseX < 133 && mouseY < 400 && mouseY > 267){
+            toolUpgrade(player.tools.sickle);}
+        if(mouseX > 133 && mouseX < 267 && mouseY > 267){
+            toolUpgrade(player.tools.rod);}
+        if(mouseX > 267 && mouseY < 133){
+            toolUpgrade(player.tools.helmet);}
+        if(mouseX > 267 && mouseY < 267 && mouseY > 133){
+            toolUpgrade(player.tools.bodyplate);}
+        if(mouseX > 267 && mouseY > 267){
+            toolUpgrade(player.tools.boots);}
+        if(mouseX > 133 && mouseY > 133 && mouseX < 267 && mouseY < 267 ){
+            if(player.tools.staff.type === "none" && player.opal >= 100){
+                player.opal-=100;
+                player.tools.staff.type = "opal";
+            }
+            else if(player.tools.staff.type === "opal" && player.fephite >= 100){
+                player.fephite-=100;
+                player.tools.staff.type = "fephite";
+            }
+            else if(player.tools.staff.type === "fephite" && player.chaosium >= 100){
+                player.chaosium-=100;
+                player.tools.staff.type = "chaosium";
+            }
+            
+        }
+    }
+    
+    //Casino
+    if(player.gambling === true && mouseX > 300 && mouseX < 375){
+        if(mouseY > 100 && mouseY < 175){
+           //Get new card
+           player.cards.push(floor(random(1,10)));
+           
+        }
+        
+        if(mouseY > 200 && mouseY < 275){
+            //End the Game
+            if(arrayTotal(player.cards) > arrayTotal(player.dcards)){
+                player.dcards.push(floor(random(1,10)));}
+            if(arrayTotal(player.cards) > arrayTotal(player.dcards)){
+                player.dcards.push(floor(random(1,10)));}
+            if(arrayTotal(player.cards) > arrayTotal(player.dcards)){
+                player.dcards.push(floor(random(1,10)));}
+            if(arrayTotal(player.cards) > arrayTotal(player.dcards)){
+                player.dcards.push(floor(random(1,10)));}
+            if(arrayTotal(player.cards) > arrayTotal(player.dcards)){
+                player.dcards.push(floor(random(1,10)));}
+            if(arrayTotal(player.cards) > arrayTotal(player.dcards)){
+                player.dcards.push(floor(random(1,10)));}
+            if(arrayTotal(player.cards) > arrayTotal(player.dcards)){
+                player.dcards.push(floor(random(1,10)));}
+            if(arrayTotal(player.cards) > arrayTotal(player.dcards)){
+                player.dcards.push(floor(random(1,10)));}
+            if(arrayTotal(player.cards) > arrayTotal(player.dcards)){
+                player.dcards.push(floor(random(1,10)));}
+            if(arrayTotal(player.cards) > arrayTotal(player.dcards)){
+                player.dcards.push(floor(random(1,10)));}
+            
+            if(arrayTotal(player.dcards) > 21){
+                player.coins+=4000; player.gambling = false;}
+        }
+        player.turn = "AI";
+    }
+    if(player.UI==="casino"&&player.gambling===false&&player.coins>=2000){
+player.gambling = true; player.coins -= 2000; player.cards = []; player.dcards = [];
+    player.cards.push(floor(random(1,10)));
+    player.cards.push(floor(random(1,10)));
+    
+    player.dcards.push(floor(random(1,10)));
+    player.dcards.push(floor(random(1,10)));
+    }
+    
+    // The room
+    if(player.UI === "theroom"){
+        if(mouseY > 75 && mouseY < 125 && player.silver >= 100 && player.maxhealth < 1000){
+            player.maxhealth += 10;
+            player.silver -= 100;
+        }
+        
+        else if(mouseY > 145 && mouseY < 195 && player.silver >= 1000 && player.runes.labour < 20){
+            player.runes.labour ++;
+            player.silver -= 1000;
+        }
+        
+        else if(mouseY > 215 && mouseY < 265 && player.gold >= 100 && player.runes.labour < 20){
+            player.runes.labour ++;
+            player.gold -= 100;
+        }
+        
+        else if(mouseY > 285 && mouseY < 335 && player.gold >= 1000 && player.regen < 10){
+            player.regen += 0.1;
+            player.gold -= 1000;
+        }
+        
+    }
+    
+    //Employment
+    if(player.UI === "workers" && mouseY > 100){
+        if(mouseX > 200){ // Firing
+            if(mouseY < 160 && player.workers.miners > 0){player.workers.miners--;}
+            else if(mouseY < 220 && player.workers.lumberjacks > 0){player.workers.lumberjacks--;}
+            else if(mouseY < 280 && player.workers.fishermen > 0){player.workers.fishermen--;}
+            else if(mouseY < 340 && player.workers.fighters > 0){player.workers.fighters--;}
+            else if(player.workers.merchants > 0){player.workers.merchants--;}
+        }
+        
+        else if (mouseX < 200){ // Hiring
+            if(mouseY < 160){player.workers.miners++;}
+            else if(mouseY < 220){player.workers.lumberjacks++;}
+            else if(mouseY < 280){player.workers.fishermen++;}
+            else if(mouseY < 340){player.workers.fighters++;}
+            else{player.workers.merchants++;}
+        }
+    }
+    
+    //Shop
+    if(player.UI === "shop" && mouseY > 200){
+        if(mouseX > 200){
+            if(mouseY < 300 && player.coins >= 5000){
+                player.coins -= 5000;
+                player.gold += 12;
+            }
+            
+            if(mouseY > 300 && player.coins >= 2000){
+                player.coins -= 3000;
+                player.meat += 12;
+            }
+        }
+        
+        if(mouseX < 200){
+            if(mouseY < 300 && player.coins >= 1500){
+                player.coins -= 1500;
+                player.silver += 12;
+            }
+            
+            if(mouseY > 300 && player.coins >= 30000){
+                player.coins -= 30000;
+                player.opal += 12;
+            }
+        }
+    }
+    
+    //Adventure
+    if(player.UI === "adventure"){
+    if(mouseX < 200 && mouseY < 200 && player.skills.combat >= 1){ // Plains
+            player.region = "plains";
+            player.UI = "explore";
+        }
+        
+    else if(mouseX > 200 && mouseY < 200 && player.skills.combat >= 8){ // Forest
+            player.region = "forest";
+            player.UI = "explore";
+        }
+        
+    else if(mouseX < 200 && mouseY > 200 && player.skills.combat >= 25){ // Dungeon
+            player.region = "dungeon";
+            player.UI = "explore";
+        }
+        
+    else if(mouseX > 200 && mouseY > 200 && player.skills.combat >= 60){ // Peaks
+            player.region = "peaks";
+            player.UI = "explore";
+        }
+        
+        
+    }
+    
+    //Exploration
+    if(player.UI === "explore" && mouseY > 275){
+        hold = ceil(random(0,100));
+        if(player.region === "plains" && player.skills.combat >= 1){
+            explorePlains();
+        }
+        
+        else if(player.region === "forest" && player.skills.combat >= 8){
+            exploreForest();
+        }
+        
+        else if(player.region === "dungeon" && player.skills.combat >= 25){
+            exploreDungeon();
+        }
+        
+        else if(player.region === "peaks" && player.skills.combat >= 60){
+            explorePeaks();
+        }
+        
+        
+    }
+    
+    //Fighting
+    else if(player.UI === "fight"){
+        playerDefenseMath();
+    if(clickedObjectButton(buttons.fightSwing)){
+        enemy.health -= swingMath();
+    }
+    else if(clickedObjectButton(buttons.fightCast) && player.tools.staff.type === "opal"){
+        enemy.health -= 200*intel;
+    }
+    else if(clickedObjectButton(buttons.fightCast) && player.tools.staff.type === "fephite"){
+        enemy.health -= 500*intel;
+    }
+    else if(clickedObjectButton(buttons.fightHeal)){
+        if(player.health < player.maxhealth*0.9){player.health += player.maxhealth/10;} else{player.health = player.maxhealth;}
+    }
+    else if(clickedObjectButton(buttons.fightRun)){
+        player.UI = "explore";
+    }
+    enemy.health -= player.workers.fighters/5;
+    if(enemy.health <= 0){battleWin();}
+    else{enemyAttack(); enemy.health += enemy.regen;}
+    } // End of fight
+    
+    if(player.UI === "gym"){
+        if(inSchool){
+        if(mouseX > 200){exersize();}
+        else{learning();}}
+        else{inSchool = true;}
+    }
+    
+    if(canBeKing() && player.UI){becomeKing();}
+    
+    }//End of Working player
+if(!alive){
+    if(stage === 3 && 150 < mouseX && mouseX < 250 && 125 < mouseY && mouseY < 225 ){
+        if(latch.b === 20){stage = 4;}
+        else{choke += 0.01;}
+        
+    }
+}
+    
+}
+function mouseKing(){}
+function mouseGod(){}
+function mouseFeph(){}
+
+function drawWorker(){
+    if(player.meta === "worker" && alive){
+    if(player.health <= 0){death();}
+    if(inSchool){gymMath();}
+    drawWorkerUI();
+    drawMainStats();
+    player.coins = floor(player.coins);
+    grow();
+    if(player.UI !== "fight"){regeneration();}
+    if(player.workers.fighters > 100){player.workers.fighters = 100;}
+    player.hunger -= 1/600;
+    player.realTime+=1/60/60;
+    player.gameTime+=1/50/23/1.1*2;
+    if(player.d === RIGHT && player.casted){player.line+=6;}
+    if(player.d === LEFT && player.casted){player.line-=6;}
+    if(player.line >= 400){player.d = LEFT;}
+    if(player.line <= 0){player.d = RIGHT;}
+    pearlCalculations();
+    
+    //Once a second command
+    frame ++ ;
+    if(frame === 60){
+        frame = 0;
+        workerCalculations();
+    }
+    
+    if(waiting){wait++;}
+    if(wait >= 144){
+        wait = 0;
+        waiting = false;
+        doneWaiting = true;
+    }
+    
+    if(player.tree >= 100 && player.forests[0] > 0){player.tree -= 100; player.wood+=round(random(2,5))*player.runes.labour; player.forests[0]--;}
+    
+    
+    /*if(player.realTime < 1 && (player.coins > 1000 || player.opal > 2 || player.strength > 6 || intel > 2)){soul = 0;
+    
+    println(str(player.realTime > 1) + str(player.coins > 1000) + str(player.opal > 2 )+ str(player.strength > 6) + str(intel > 2));
+    } */
+    
+    
+    } // End of worker meta
+    
+    if(!alive){
+        background(0, 0, 100);
+        fill(150, 150, 255);
+        textAlign(CENTER, CENTER);
+        textSize(30);
+        text("Welcome to the death trials...", 200, 20);
+        fill(0); rect(0,350,400,400);
+        fill(200,255,255); rect(10,360,(soul/100)*380,30);
+        textAlign(LEFT, TOP);
+        if(stage === 1){
+            if(ran(0,70) === 1){latch.up = round(random(0,1));}
+            if(ran(0,60) === 1){latch.down = round(random(0,1));}
+            if(ran(0,50) === 1){latch.left = round(random(0,1));}
+            if(ran(0,40) === 1){latch.right = round(random(0,1));}
+            
+            fill(latch.up - 1);
+            ellipse(200,150,50,50);
+            fill(latch.down - 1);
+            ellipse(200,250,50,50);
+            fill(latch.left - 1);
+            ellipse(150,200,50,50);
+            fill(latch.right - 1);
+            ellipse(250,200,50,50);
+            
+            soul -= choke;
+            if(latch.up + latch.down + latch.left + latch.right === 0){stage++;
+            latch = {
+up: 1,
+down: 1,
+left: 1,
+right: 1,
+p: 10,
+z: 5,
+b: 0,
+y: 200,
+s: random(-5,5)
+};
+            }
+        }
+        if(stage === 2){
+            textSize(30);
+            fill(255, 255, 255);
+            text("Get this under ~~ Ctrl!", 7,259);
+            fill(0, 0, 0);
+            rect(180,50,40,250);
+            fill(255, 0, 0);
+            rect(185,55,30,latch.p);
+            soul -= choke;
+            if(latch.p < 10 || latch.p > 240){latch.z *= -1;}
+            latch.p += latch.z;
+        }
+        if(stage === 3){
+            textSize(20);
+            fill(255, 255, 255);
+            text('Skill? Press "B" to roll! Click when it is 20!', 10,320);
+            
+            textAlign(CENTER, CENTER);
+            textSize(100);
+            text(latch.b, 200,180);
+            textAlign(LEFT, TOP);
+            soul -= choke;
+        }
+        if(stage === 4){
+            stroke(250, 150, 100);
+            strokeWeight(50);
+            line(0,latch.y,400,latch.y);
+            strokeWeight(5);
+            line(0,75,400,75);
+            line(0,325,400,325);
+            latch.y += latch.s;
+            latch.s += random(-0.1,0.1);
+            if(latch.y > 300){latch.y = 300; latch.s *= -1;}
+            if(latch.y < 100){latch.y = 100; latch.s *= -1;}
+            noStroke();
+            
+            if(mouseY > latch.y - 25 && mouseY < latch.y + 25)
+            {soul += 0.05;} else{soul -= choke;}
+            
+            if(soul >= 100){rebirth();}
+        }
+    }
+    
+    drawAllButtons();
+    if(soul <= 0){
+        background(0);
+        textAlign(CENTER,CENTER);
+        textSize(200);
+        fill(255);
+        text("☠", 200, 124);
+        textSize(100);
+        text("Ctrl + R",200,288);
+        draw = {};}
+}
+function drawKing(){
+    println("You have beaten the game so far!");
+}
+function drawGod(){}
+function drawFeph(){}
+
+keyReleased = function(){
+    player.clicks++;
+    if(player.meta === "worker"){keyWorker();}
+    else if(player.meta === "king"){keyKing();}
+    else if(player.meta === "god"){keyGod();}
+    };
+
+mouseReleased = function(){
+    player.clicks++;
+    if(player.meta === "worker"){mouseWorker();}
+    else if(player.meta === "king"){mouseKing();}
+    else if(player.meta === "god"){mouseGod();}
+    };
+
+//================================================================================//
+//================================================================================//
+//================================Run=Every=Frame=================================//
+//================================================================================//
+//================================================================================//
+
+draw = function() {
+    background(backgroundColor);
+    if(player.meta === "worker"){drawWorker();}
+    else if(player.meta === "king"){drawKing();}
+    else if(player.meta === "god"){drawGod();}
+};
+
+    }};
+
+  // Get the canvas that ProcessingJS will use
+  var canvas = document.getElementById("mycanvas"); 
+  // Pass the function to ProcessingJS constructor
+  var processingInstance = new Processing(canvas, programCode); 
+  </script>
+</html>
